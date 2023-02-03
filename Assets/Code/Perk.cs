@@ -14,6 +14,8 @@ public abstract class Perk
 
     protected short[] resistanceBonuses = new short[5];
 
+    public short[] ResistanceBonuses { get => resistanceBonuses;}
+
     public virtual void Run() { 
     }
 }
