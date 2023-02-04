@@ -14,9 +14,17 @@ public class InitMenuScript : MonoBehaviour
     [SerializeField] private float speed;
     
     public void Play()
-    {
-        StartCoroutine(ResizeCamera());
-        StartCoroutine(HideFakeButtons());
+    {      
+        try
+        {
+            StartCoroutine(ResizeCamera());
+            StartCoroutine(HideFakeButtons());
+
+        }
+        catch (System.Exception)
+        {
+            StopAllCoroutines();
+        }
     }
 
     /// <summary>
@@ -46,6 +54,9 @@ public class InitMenuScript : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             
         }
+
+        // Al finalizar la transicción, eliminar el fakeCcanvas
+        Destroy(fakeCanvas);
     }
 
     IEnumerator HideFakeButtons()
