@@ -7,8 +7,11 @@ using Unity.Mathematics;
 
 public class RoundScript : MonoBehaviour
 {
+    [SerializeField] private GameObject[] btnPerks;
+
     RoundEvent roundEvent;
     private GameObject hud;
+    private bool isShow = false;
     public static RoundScript instance = null;
 
     public enum RoundEnum : short
@@ -99,6 +102,45 @@ public class RoundScript : MonoBehaviour
         //Activate Hud
         hud.SetActive(true);
 
+    }
+
+    /// <summary>
+    /// Alterna el estado de los botones de los perks
+    /// </summary>
+    public void ShowHidePerks()
+    {
+        // Muestra los perks
+        if (isShow) { 
+            StartCoroutine(HidePerskAvalible());
+            isShow = false;
+            return;
+        }
+
+        // Oculta los perks
+        StartCoroutine(ShowPerksAvalible());
+        isShow = true;
+    }
+
+    /// <summary>
+    /// Mostrar los botones con los perks disponibles
+    /// </summary>
+    IEnumerator ShowPerksAvalible()
+    {
+        yield return new WaitForSeconds(0.5f);
+        // 280
+
+
+
+
+    }
+
+
+    /// <summary>
+    /// Ocultar los botones de los perks disponibles
+    /// </summary>
+    IEnumerator HidePerskAvalible()
+    {
+        yield return null;
     }
 
     private void RoundsGameGeneration()
