@@ -12,7 +12,7 @@ public class TreeRenderScript : MonoBehaviour
     {
         sprites = GetComponentsInChildren<SpriteRenderer>();
         current = this;
-        Perk.TestPerks();
+        //Perk.TestPerks();
     }
 
     // Update is called once per frame

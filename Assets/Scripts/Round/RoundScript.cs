@@ -5,11 +5,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.UI;
+using JetBrains.Annotations;
+using System.Linq.Expressions;
+using TMPro;
 
 public class RoundScript : MonoBehaviour
 {
     [SerializeField] private GameObject[] btnPerks;
     [SerializeField] private float speed = 6;
+    private List<Perk.PerkEnum> upgradablePerks;
 
     RoundEvent roundEvent;
     private GameObject hud;
@@ -111,16 +115,16 @@ public class RoundScript : MonoBehaviour
     /// </summary>
     public void ShowHidePerks()
     {
+
         // Muestra los perks
         if (isShow) { 
             StartCoroutine(HidePerskAvalible());
-            isShow = false;
             return;
         }
 
         // Oculta los perks
         StartCoroutine(ShowPerksAvalible());
-        isShow = true;
+        
     }
 
     /// <summary>
@@ -130,17 +134,22 @@ public class RoundScript : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        upgradablePerks = TreeScript.current.UpgradablePerks();
+        int i = 0;
         foreach (GameObject btn in btnPerks)
         {
-            StartCoroutine(ShowButton(btn));
+            StartCoroutine(ShowButton(btn, (int)upgradablePerks[i]));
+            i++;
             yield return new WaitForSeconds(0.25f);
         }
-
+        isShow = true;
     }
 
-    IEnumerator ShowButton(GameObject btn)
+    IEnumerator ShowButton(GameObject btn, int index)
     {
         int i = 30;
+
+        btn.GetComponentInChildren<TextMeshProUGUI>().text = Perk.PerkStringList[index];
 
         while (i > 0){
             btn.transform.position = Vector3.MoveTowards(
@@ -164,6 +173,7 @@ public class RoundScript : MonoBehaviour
             StartCoroutine(HideButton(btn));
             yield return new WaitForSeconds(0.25f);
         }
+        isShow = false;
     }
 
     IEnumerator HideButton(GameObject btn)
@@ -181,6 +191,24 @@ public class RoundScript : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Activa el perk pulsado
+    /// </summary>
+    /// <param name="indexPerk"></param>
+    public void ActivePerk(int indexPerk)
+    {
+        roundNumber++;
+        Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
+        TreeRenderScript.current.UpdateSprites();
+        
+        ShowHidePerks();
+
+        foreach (var valor in Perk.ActivePerks)
+        {
+            Debug.Log(valor);
+        }
+    }
 
     private void RoundsGameGeneration()
     {
