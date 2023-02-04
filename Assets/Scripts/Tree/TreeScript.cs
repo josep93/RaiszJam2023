@@ -20,6 +20,7 @@ public class TreeScript : MonoBehaviour
 
    bool UpgradablePerks()
     {
+        upgradablePerks = new List<Perk.PerkEnum>();
         List<Perk.PerkEnum> availablePerks = Perk.AvailablePerks();
         System.Random random = new System.Random();
 
@@ -30,7 +31,7 @@ public class TreeScript : MonoBehaviour
 
         for(int i = 0; i<options; i++)
         {
-            int integer = random.Next(0,availablePerks.Count);
+            int integer = random.Next(0,availablePerks.Count-1);
             upgradablePerks.Add(availablePerks[integer]);
             availablePerks.Remove(availablePerks[integer]);
         }
