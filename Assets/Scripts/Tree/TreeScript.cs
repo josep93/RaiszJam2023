@@ -20,6 +20,7 @@ public class TreeScript : MonoBehaviour
     {
         current = this;
         perks = new List<Perk>();
+        TreeRenderScript.current.UpdateSprites();
     }
 
    bool UpgradablePerks()
