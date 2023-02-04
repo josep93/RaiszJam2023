@@ -9,13 +9,31 @@ public class TreeScript : MonoBehaviour
     public static TreeScript current;
 
     protected short[] resistanceBonuses = new short[5];
-
-    List<Perk> perks;
+    private List<Perk.PerkEnum> upgradablePerks; 
 
     void Start()
     {
         current = this;
-        perks = new List<Perk>();
+    }
+
+   bool UpgradablePerks()
+    {
+        List<Perk.PerkEnum> availablePerks = Perk.AvailablePerks();
+        System.Random random = new System.Random();
+
+        int options = 3;
+        options = availablePerks.Count < options ? availablePerks.Count : options;
+
+        if (options <= 0) return false;
+
+        for(int i = 0; i<options; i++)
+        {
+            int integer = random.Next(0,availablePerks.Count);
+            upgradablePerks.Add(availablePerks[integer]);
+            availablePerks.Remove(availablePerks[integer]);
+        }
+
+        return true;
     }
 
     /// <summary>
