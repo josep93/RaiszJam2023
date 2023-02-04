@@ -6,7 +6,7 @@ using UnityEngine;
 public class MusicManager : MonoBehaviour
 {
     AudioSource audio;
-    float maxVolume = 0.5f;
+    float maxVolume = 1f;
 
     enum State
     {
@@ -56,7 +56,7 @@ public class MusicManager : MonoBehaviour
         while (audio.volume > 0)
         {
             audio.volume -= 0.05f;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.025f);
         }
         audio.volume = maxVolume;
         audio.clip = clips[(int)state];

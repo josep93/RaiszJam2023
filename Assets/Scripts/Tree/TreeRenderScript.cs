@@ -22,6 +22,23 @@ public class TreeRenderScript : MonoBehaviour
         {
             sprite.enabled = false;
         }
+
+        if (RoundScript.instance.roundNumber < 3) {
+            sprites[0].enabled = true;
+            return;
+        }
+
+        if (RoundScript.instance.roundNumber > 8)
+        {
+            sprites[19].enabled = true;
+            return;
+        }
+        else if (RoundScript.instance.roundNumber > 10)
+        {
+            sprites[20].enabled = true;
+            return;
+        }
+
         sprites[6].enabled = true;
         sprites[13].enabled = true;
         if(Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThick))sprites[14].enabled = true;
