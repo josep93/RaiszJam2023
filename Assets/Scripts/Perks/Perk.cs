@@ -13,7 +13,7 @@ public abstract class Perk
         Drought
     }
 
-    protected enum Perk : short
+    protected enum PerkType : short
     {
         BranchFine,
         BranchThick,

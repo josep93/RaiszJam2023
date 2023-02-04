@@ -711,7 +711,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 925876690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2ca96d31b2d7c42a41714f76746ded, type: 3}
+  m_Script: {fileID: 11500000, guid: abdafc26bb17795459804864f669d6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   btnPlay: {fileID: 760484663}
@@ -1314,7 +1314,7 @@ SpriteRenderer:
   m_SortingLayerID: -846751847
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ea23909235ed9ca448619361249d4147, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f9d7fd36a4223c4780e3fd83cdc6ebb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1553,7 +1553,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1661846973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd17ef0f1a6e1d45a9b89788ea0d026, type: 3}
+  m_Script: {fileID: 11500000, guid: 73031f732627ff949a08672912f45b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1746162711
