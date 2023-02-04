@@ -198,16 +198,15 @@ public class RoundScript : MonoBehaviour
     /// <param name="indexPerk"></param>
     public void ActivePerk(int indexPerk)
     {
+        Debug.Log(roundList[roundNumber]);
         roundNumber++;
+
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
         
         ShowHidePerks();
+        
 
-        foreach (var valor in Perk.ActivePerks)
-        {
-            Debug.Log(valor);
-        }
     }
 
     private void RoundsGameGeneration()
