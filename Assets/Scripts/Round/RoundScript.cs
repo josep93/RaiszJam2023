@@ -126,7 +126,7 @@ public class RoundScript : MonoBehaviour
         // Rounds creation
         for (int i = 0; i < 2; i++)
         {
-            int rnd = UnityEngine.Random.Range(0, 6);
+            int rnd = UnityEngine.Random.Range(0, 5);
             roundList.Add(RoundsSoft[rnd]);
         }
 
@@ -134,13 +134,13 @@ public class RoundScript : MonoBehaviour
         {            
             if (mediRounds[i] == 0)
             {
-                int rnd = UnityEngine.Random.Range(0, 7);
+                int rnd = UnityEngine.Random.Range(0, 6);
                 roundList.Add(RoundsSoft[rnd]);
             }
 
             if (mediRounds[i] == 1)
             {
-                int rnd = UnityEngine.Random.Range(0, 7);
+                int rnd = UnityEngine.Random.Range(0, 6);
                 roundList.Add(RoundsMedi[rnd]);
             }
         }
@@ -149,13 +149,13 @@ public class RoundScript : MonoBehaviour
         {
             if (hardRounds[i] == 1)
             {
-                int rnd = UnityEngine.Random.Range(0, 6);
+                int rnd = UnityEngine.Random.Range(0, 5);
                 roundList.Add(RoundsMedi[rnd]);
             }
 
             if (hardRounds[i] == 2)
             {
-                int rnd = UnityEngine.Random.Range(0, 6);
+                int rnd = UnityEngine.Random.Range(0, 5);
                 roundList.Add(RoundsHard[rnd]);
             }
         }
