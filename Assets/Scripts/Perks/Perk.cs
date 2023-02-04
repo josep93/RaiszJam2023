@@ -39,26 +39,131 @@ public abstract class Perk
         WoodWarm
     }
 
-    private static HashSet<short> activePerks = new HashSet<short>();
+    private static HashSet<PerkEnum> activePerks = new HashSet<PerkEnum>();
 
     protected short[] resistanceBonuses = new short[5];
 
     public short[] ResistanceBonuses { get => resistanceBonuses; }
-    public static HashSet<short> ActivePerks { get => activePerks; }
+    public static HashSet<PerkEnum> ActivePerks { get => activePerks; }
 
-    public virtual void Run()
+    public void Run()
     {
     }
 
-
-        
+    public static bool CheckViability(PerkEnum perkChosen)
+    {
+        if (activePerks.Contains(perkChosen)) return false;
+        switch (perkChosen)
+        {
+            case PerkEnum.BranchFine:
+                {
+                    if (!activePerks.Contains(PerkEnum.BranchThick)) return false;
+                    return true;
+                }
+            case PerkEnum.BranchThick:
+                {
+                    return true;
+                }
+            case PerkEnum.Cork:
+                {
+                    if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    return true;
+                }
+            case PerkEnum.FlexibleStem:
+                {
+                    if (activePerks.Contains(PerkEnum.Wood)) return false;
+                    return true;
+                }
+            case PerkEnum.GenericCold:
+                {
+                    return true;
+                }
+            case PerkEnum.GenericDrought:
+                {
+                    return true;
+                }
+            case PerkEnum.GenericHeat:
+                {
+                    return true;
+                }
+            case PerkEnum.GenericImpact:
+                {
+                    return true;
+                }
+            case PerkEnum.GenericTorsion:
+                {
+                    return true;
+                }
+            case PerkEnum.LeavesEmpty:
+                {
+                    if (activePerks.Contains(PerkEnum.LeavesFull)) return false;
+                    if (activePerks.Contains(PerkEnum.LeavesWaxed)) return false;
+                    if (!activePerks.Contains(PerkEnum.Thorns)) return false;
+                    return true;
+                }
+            case PerkEnum.LeavesFull:
+                {
+                    if (activePerks.Contains(PerkEnum.LeavesEmpty)) return false;
+                    return true;
+                }
+            case PerkEnum.LeavesWaxed:
+                {
+                    if (activePerks.Contains(PerkEnum.LeavesEmpty)) return false;
+                    return true;
+                }
+            case PerkEnum.RootAdventitious:
+                {
+                    if (!activePerks.Contains(PerkEnum.RootMain)) return false;
+                    return true;
+                }
+            case PerkEnum.RootLateral:
+                {
+                    if (!activePerks.Contains(PerkEnum.RootMain)) return false;
+                    return true;
+                }
+            case PerkEnum.RootMain:
+                {
+                    return true;
+                }
+            case PerkEnum.SapDense:
+                {
+                    return true;
+                }
+            case PerkEnum.Thorns:
+                {
+                    return true;
+                }
+            case PerkEnum.Wood:
+                {
+                    if (activePerks.Contains(PerkEnum.FlexibleStem)) return false;
+                    return true;
+                }
+            case PerkEnum.WoodDense:
+                {
+                    if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    return true;
+                }
+            case PerkEnum.WoodHard:
+                {
+                    if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    return true;
+                }
+            case PerkEnum.WoodWarm:
+                {
+                    if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    return true;
+                }
+        }
+        return false;
+    
+    }
     /// <summary>
     /// Instantiates the perk as the selected one
     /// </summary>
     /// <param name="perkChosen">Choosen perk Id</param>
     public void PerkChosen(PerkEnum perkChosen)
     {
-        activePerks.Add((short)perkChosen);
+        activePerks.Add(perkChosen);
         switch (perkChosen)
         {
             case PerkEnum.BranchFine:
