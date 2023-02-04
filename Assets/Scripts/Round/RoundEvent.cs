@@ -8,7 +8,6 @@ public class RoundEvent : MonoBehaviour
     private RoundScript roundScript;
     private Camera cam;
 
-
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
 

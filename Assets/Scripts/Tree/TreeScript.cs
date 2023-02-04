@@ -8,9 +8,11 @@ public class TreeScript : MonoBehaviour
     //singleton
     public static TreeScript current;
 
-    protected short[] resistanceBonuses = new short[5];
+    private short[] resistanceBonuses = new short[5];
     private List<Perk> perks;
-    private List<Perk.PerkEnum> upgradablePerks; 
+    private List<Perk.PerkEnum> upgradablePerks;
+
+    public short[] ResistanceBonuses { get => resistanceBonuses; }
 
     void Start()
     {
