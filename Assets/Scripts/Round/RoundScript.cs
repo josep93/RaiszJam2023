@@ -10,8 +10,6 @@ public class RoundScript : MonoBehaviour
     RoundEvent roundEvent;
     private GameObject hud;
 
-
-    
     public enum RoundEnum : short
     {
         Blizzard,
