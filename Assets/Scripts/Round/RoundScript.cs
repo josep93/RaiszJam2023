@@ -198,14 +198,15 @@ public class RoundScript : MonoBehaviour
     /// <param name="indexPerk"></param>
     public void ActivePerk(int indexPerk)
     {
-        Debug.Log(roundList[roundNumber]);
+        Debug.Log("Ataque: " + roundList[roundNumber]);
+        roundEvent.Run(roundList[roundNumber]);
         roundNumber++;
 
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
         
         ShowHidePerks();
-        
+        Debug.Log("Vida: " + TreeScript.current.Health);
 
     }
 
