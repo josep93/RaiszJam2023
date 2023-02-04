@@ -8,6 +8,8 @@ public class RoundEvent : MonoBehaviour
     private RoundScript roundScript;
     private Camera cam;
 
+    private bool customValue = true;
+
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
 
@@ -49,8 +51,13 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
-        short damageTaken = 0;
+        if (customValue)
+        {
+            StartCoroutine(TempestEffect());
+            return;
+        }
 
+        short damageTaken = 0;
         int[] attackRound = new int[5];
 
         switch (round)
