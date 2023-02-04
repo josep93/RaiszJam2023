@@ -13,7 +13,6 @@ public abstract class Perk
         Torsion
     }
 
-
     public enum PerkEnum : short
     {
         BranchFine,
@@ -39,19 +38,28 @@ public abstract class Perk
         WoodWarm
     }
 
+    private static HashSet<short> activePerks = new HashSet<short>();
+
     protected short[] resistanceBonuses = new short[5];
 
     public short[] ResistanceBonuses { get => resistanceBonuses; }
+    public static HashSet<short> ActivePerks { get => activePerks; }
 
     public virtual void Run()
     {
     }
 
+
+        
+    /// <summary>
+    /// Instantiates the perk as the selected one
+    /// </summary>
+    /// <param name="perkChosen">Choosen perk Id</param>
     public void PerkChosen(PerkEnum perkChosen)
     {
+        activePerks.Add((short)perkChosen);
         switch (perkChosen)
         {
-
             case PerkEnum.BranchFine:
                 {
                     resistanceBonuses[(short)ResistancesEnum.Impact] += 2;
