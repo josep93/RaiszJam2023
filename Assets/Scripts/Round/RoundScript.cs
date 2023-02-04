@@ -69,9 +69,13 @@ public class RoundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
 
+=======
+        RoundsGameGeneration();
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -98,21 +102,46 @@ public class RoundScript : MonoBehaviour
 
     private void RoundsGameGeneration()
     {
-        for (int i = 0; i < 3; i++)
+        // Fisher–Yates shuffle algorithm
+        List<int> mediRounds = new List<int> { 0, 0, 1, 1, 1 };
+        List<int> hardRounds = new List<int> { 1, 2, 2 };
+
+        // Fisher-Yates shuffle implementation for medium rounds
+        int nMedi = mediRounds.Count;
+        for (int i = 0; i < nMedi; i++)
+        {
+            int r = i + (int)(UnityEngine.Random.value * (nMedi - i));
+            int t = mediRounds[r];
+            mediRounds[r] = mediRounds[i];
+            mediRounds[i] = t;
+        }
+
+        // Fisher-Yates shuffle implementation for hard rounds
+        int nHard = hardRounds.Count;
+        for (int i = 0; i < nHard; i++)
+        {
+            int r = i + (int)(UnityEngine.Random.value * (nHard - i));
+            int t = hardRounds[r];
+            hardRounds[r] = hardRounds[i];
+            hardRounds[i] = t;
+        }
+
+        // Rounds creation
+        for (int i = 0; i < 2; i++)
         {
             int rnd = UnityEngine.Random.Range(0, 6);
             roundList.Add(RoundsSoft[rnd]);
         }
 
-        for (int i = 0; i < 4; i++)
-        {
-            int rndDifficulty = UnityEngine.Random.Range(0, 2);
-            if (rndDifficulty == 0)
+        for (int i = 0; i < 5; i++)
+        {            
+            if (mediRounds[i] == 0)
             {
-                int rnd = UnityEngine.Random.Range(0, 6);
+                int rnd = UnityEngine.Random.Range(0, 7);
                 roundList.Add(RoundsSoft[rnd]);
             }
-            if (rndDifficulty == 1)
+
+            if (mediRounds[i] == 1)
             {
                 int rnd = UnityEngine.Random.Range(0, 7);
                 roundList.Add(RoundsMedi[rnd]);
@@ -121,9 +150,19 @@ public class RoundScript : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            int rnd = UnityEngine.Random.Range(0, 6);
-            roundList.Add(RoundsHard[rnd]);
+            if (hardRounds[i] == 1)
+            {
+                int rnd = UnityEngine.Random.Range(0, 6);
+                roundList.Add(RoundsMedi[rnd]);
+            }
+
+            if (hardRounds[i] == 2)
+            {
+                int rnd = UnityEngine.Random.Range(0, 6);
+                roundList.Add(RoundsHard[rnd]);
+            }
         }
     }
 
 }
+
