@@ -39,17 +39,17 @@ public class InitMenuScript : MonoBehaviour
     IEnumerator ResizeCamera()
     {
         // Tarda unos 3 - 2 segundos en colocarse en su pposición original
-        // 0.44
-        float i = 1;
+        // camera: -1, -4, -10
+        float i = 4;
         GameObject gCamera = Camera.main.gameObject;
         Camera cam = gCamera.GetComponent<Camera>();
 
         canvas.SetActive(false);
         fakeCanvas.SetActive(true);
         
-        while (i <= 4.5f) {
+        while (i <= 10.75f) {
+            i += 0.03f;
             cam.orthographicSize = i;
-            i += 0.01f;
             gCamera.transform.position = Vector3.MoveTowards(gCamera.transform.position, new Vector3(0, 0, gCamera.transform.position.z), speed);
             yield return new WaitForSeconds(0.01f);
             
