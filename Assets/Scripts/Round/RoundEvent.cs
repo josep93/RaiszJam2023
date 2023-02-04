@@ -155,11 +155,10 @@ public class RoundEvent : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            short res = TreeScript.current.ResistanceBonuses[i];
-            short rest = (short)(attackRound[i] - res);
-            if (rest > 0)
+            short result = (short)(attackRound[i] - TreeScript.current.ResistanceBonuses[i]);
+            if (result > 0)
             {
-                damageTaken += rest;
+                damageTaken += result;
             }
         }
 
