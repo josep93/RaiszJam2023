@@ -46,6 +46,8 @@ public class InitMenuScript : MonoBehaviour
         btnPlay.SetActive(false);
         btnExit.SetActive(false);
         fakeCanvas.SetActive(true);
+
+        MusicManager.current.StartGame();
         
         while (i <= 10.75f) {
             i += 0.03f;
