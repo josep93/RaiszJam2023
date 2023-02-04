@@ -49,6 +49,8 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
+        StartCoroutine(CalmEffect());
+        return;
         switch (round)
         {
             case RoundScript.RoundEnum.Blizzard: return;
@@ -65,11 +67,9 @@ public class RoundEvent : MonoBehaviour
             case RoundScript.RoundEnum.Plague: return;
             case RoundScript.RoundEnum.Solarium: return;
             case RoundScript.RoundEnum.Storm: return;
-            case RoundScript.RoundEnum.Sunny: return;
+            case RoundScript.RoundEnum.Sunny: StartCoroutine(CalmEffect()); return;
             case RoundScript.RoundEnum.Wind: return;
         }
-        
-        //CustomEvent(Eventos.LabRound);
     }
 
 
@@ -89,22 +89,22 @@ public class RoundEvent : MonoBehaviour
     /// <summary>
     /// Reinica las variables de movimiento y bloquea el cálculo en el Update
     /// </summary>
-    private void RestartVar()
+    private void RestartVar(float speedPosticion = 0f, float speedRotation = 0f, float speedSize = 0f)
     {
         // Move
-        speedPosticion = 0f;
+        this.speedPosticion = speedPosticion;
         xPosticion = 0f;
         yPosticion = 0f;
 
         // Rotation
-        speedRotation = 0;
+        this.speedRotation = speedRotation;
         camRotation = 0;
 
         // Size
         camSize = 10.75f;
-        speedSize = 0;
+        this.speedSize = speedSize;
 
-        moving = false;
+        //moving = false;
         roundScript.EndRound();
     }
 
@@ -136,6 +136,58 @@ public class RoundEvent : MonoBehaviour
         yield return null;
         roundScript.EndRound();*/
     }
+    #endregion
+
+
+    #region Efects
+    IEnumerator CalmEffect()
+    {
+        // Camera effects
+        moving = true;
+        camRotation = -1f;
+        speedRotation = 0.005f;
+
+        camSize = 9f;
+        speedSize = 0.0063f;
+
+
+        // Otros efectos aparte de la cámara
+
+        yield return new WaitForSeconds(3);
+
+        // Esperamos al cálculo
+        moving = false;
+        yield return new WaitForSeconds(1);
+        
+        // Retomamos la cámara
+        moving = true;
+        RestartVar(0, speedRotation, speedSize);
+    }
+
+    IEnumerator TempestEffect()
+    {
+        // Camera effects
+        moving = true;
+        camRotation = -1f;
+        speedRotation = 0.005f;
+
+        camSize = 9f;
+        speedSize = 0.0063f;
+
+
+        // Otros efectos aparte de la cámara
+
+        yield return new WaitForSeconds(3);
+
+        // Esperamos al cálculo
+        moving = false;
+        yield return new WaitForSeconds(1);
+
+        // Retomamos la cámara
+        moving = true;
+        RestartVar(0, speedRotation, speedSize);
+    }
+
     #endregion
 
 }
