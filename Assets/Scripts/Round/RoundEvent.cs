@@ -48,9 +48,29 @@ public class RoundEvent : MonoBehaviour
         LabRound
     }
 
-    public void Run()
+    public void Run(RoundScript.RoundEnum round)
     {
-        CustomEvent(Eventos.LabRound);
+        switch (round)
+        {
+            case RoundScript.RoundEnum.Blizzard: return;
+            case RoundScript.RoundEnum.Catapult: return;
+            case RoundScript.RoundEnum.Cloudy: return;
+            case RoundScript.RoundEnum.Drizzle: return;
+            case RoundScript.RoundEnum.DryStorm: return;
+            case RoundScript.RoundEnum.Fire: return;
+            case RoundScript.RoundEnum.Earthquake: return;
+            case RoundScript.RoundEnum.Frost: return;
+            case RoundScript.RoundEnum.Hail: return;
+            case RoundScript.RoundEnum.HeatWave: return;
+            case RoundScript.RoundEnum.Monsoon: return;
+            case RoundScript.RoundEnum.Plague: return;
+            case RoundScript.RoundEnum.Solarium: return;
+            case RoundScript.RoundEnum.Storm: return;
+            case RoundScript.RoundEnum.Sunny: return;
+            case RoundScript.RoundEnum.Wind: return;
+        }
+        
+        //CustomEvent(Eventos.LabRound);
     }
 
 
@@ -67,6 +87,9 @@ public class RoundEvent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reinica las variables de movimiento y bloquea el cálculo en el Update
+    /// </summary>
     private void RestartVar()
     {
         // Move

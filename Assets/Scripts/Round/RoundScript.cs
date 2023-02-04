@@ -84,7 +84,7 @@ public class RoundScript : MonoBehaviour
         //Deactivate Hud
 
         TreeScript.current.UpdateBonuses();
-        roundEvent.Run();
+        roundEvent.Run(RoundEnum.Sunny);
         hud.SetActive(false);
     }
 
