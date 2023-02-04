@@ -49,7 +49,7 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
-        StartCoroutine(CalmEffect());
+        StartCoroutine(TempestEffect());
         return;
         switch (round)
         {
@@ -168,16 +168,24 @@ public class RoundEvent : MonoBehaviour
     {
         // Camera effects
         moving = true;
-        camRotation = -1f;
-        speedRotation = 0.005f;
 
+        // Position
+        xPosticion = 2;
+        yPosticion = 1;
+        speedPosticion = 0.03f;
+        
+        // Rotation
+        camRotation = -1.5f;
+        speedRotation = 0.01f;
+
+        // Size
         camSize = 9f;
-        speedSize = 0.0063f;
+        speedSize = 0.0126f;
 
 
         // Otros efectos aparte de la cámara
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         // Esperamos al cálculo
         moving = false;
@@ -185,7 +193,7 @@ public class RoundEvent : MonoBehaviour
 
         // Retomamos la cámara
         moving = true;
-        RestartVar(0, speedRotation, speedSize);
+        RestartVar(speedPosticion, speedRotation, speedSize);
     }
 
     #endregion
