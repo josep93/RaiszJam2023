@@ -11,12 +11,12 @@ public class RoundEvent : MonoBehaviour
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
 
-    [Header("Variables de posición")]
+    [Header("Variables de posiciï¿½n")]
     [SerializeField] float speedPosticion = 0f;
     [SerializeField] float xPosticion = 0f;
     [SerializeField] float yPosticion = 0f;
 
-    [Header("Variables de rotación")]
+    [Header("Variables de rotaciï¿½n")]
     [SerializeField] float speedRotation = 0f;
     [SerializeField] float camRotation = 0f;
 
@@ -39,7 +39,7 @@ public class RoundEvent : MonoBehaviour
             new Vector3(xPosticion, yPosticion, cam.transform.position.z), speedPosticion), // New position, speed
             Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(0, 0, camRotation), speedRotation)  // Rotation
             );
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, camSize, speedSize);  // Tamaño cámara
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, camSize, speedSize);  // Tamaï¿½o cï¿½mara
     }
 
     public enum Eventos : byte
@@ -49,27 +49,120 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
-        StartCoroutine(TempestEffect());
-        return;
+        short damageTaken = 0;
+
+        int[] attackRound = new int[5];
+
         switch (round)
         {
-            case RoundScript.RoundEnum.Blizzard: return;
-            case RoundScript.RoundEnum.Catapult: return;
-            case RoundScript.RoundEnum.Cloudy: return;
-            case RoundScript.RoundEnum.Drizzle: return;
-            case RoundScript.RoundEnum.DryStorm: return;
-            case RoundScript.RoundEnum.Fire: return;
-            case RoundScript.RoundEnum.Earthquake: return;
-            case RoundScript.RoundEnum.Frost: return;
-            case RoundScript.RoundEnum.Hail: return;
-            case RoundScript.RoundEnum.HeatWave: return;
-            case RoundScript.RoundEnum.Monsoon: return;
-            case RoundScript.RoundEnum.Plague: return;
-            case RoundScript.RoundEnum.Solarium: return;
-            case RoundScript.RoundEnum.Storm: return;
-            case RoundScript.RoundEnum.Sunny: StartCoroutine(CalmEffect()); return;
-            case RoundScript.RoundEnum.Wind: return;
+            case RoundScript.RoundEnum.Blizzard:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Catapult:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Catapult][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Cloudy:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Drizzle:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle][i];
+                }
+                return;
+            case RoundScript.RoundEnum.DryStorm:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Fire:
+                return;
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Fire][i];
+                }
+            case RoundScript.RoundEnum.Earthquake:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Frost:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Frost][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Hail:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Hail][i];
+                }
+                return;
+            case RoundScript.RoundEnum.HeatWave:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Monsoon:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Plague:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Plague][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Solarium:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Solarium][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Storm:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Storm][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Sunny:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Sunny][i];
+                }
+                return;
+            case RoundScript.RoundEnum.Wind:
+                for (int i = 0; i < 5; i++)
+                {
+                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Wind][i];
+                }
+                return;
         }
+
+        for (int i = 0; i < 5; i++)
+        {
+            short result = (short)(attackRound[i] - TreeScript.current.ResistanceBonuses[i]);
+            if (result > 0)
+            {
+                damageTaken += result;
+            }
+        }
+
+        //CustomEvent(Eventos.LabRound);
     }
 
 
@@ -87,7 +180,7 @@ public class RoundEvent : MonoBehaviour
     }
 
     /// <summary>
-    /// Reinica las variables de movimiento y bloquea el cálculo en el Update
+    /// Reinica las variables de movimiento y bloquea el cï¿½lculo en el Update
     /// </summary>
     private void RestartVar(float speedPosticion = 0f, float speedRotation = 0f, float speedSize = 0f)
     {
@@ -151,15 +244,15 @@ public class RoundEvent : MonoBehaviour
         speedSize = 0.0063f;
 
 
-        // Otros efectos aparte de la cámara
+        // Otros efectos aparte de la cï¿½mara
 
         yield return new WaitForSeconds(3);
 
-        // Esperamos al cálculo
+        // Esperamos al cï¿½lculo
         moving = false;
         yield return new WaitForSeconds(1);
         
-        // Retomamos la cámara
+        // Retomamos la cï¿½mara
         moving = true;
         RestartVar(0, speedRotation, speedSize);
     }
@@ -183,15 +276,15 @@ public class RoundEvent : MonoBehaviour
         speedSize = 0.0126f;
 
 
-        // Otros efectos aparte de la cámara
+        // Otros efectos aparte de la cï¿½mara
 
         yield return new WaitForSeconds(2);
 
-        // Esperamos al cálculo
+        // Esperamos al cï¿½lculo
         moving = false;
         yield return new WaitForSeconds(1);
 
-        // Retomamos la cámara
+        // Retomamos la cï¿½mara
         moving = true;
         RestartVar(speedPosticion, speedRotation, speedSize);
     }
