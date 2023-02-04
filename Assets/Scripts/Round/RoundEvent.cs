@@ -7,8 +7,7 @@ public class RoundEvent : MonoBehaviour
 {
     private RoundScript roundScript;
     private Camera cam;
-
-    private bool customValue = true; // Jose Luis
+    public static RoundEvent current = null;
 
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
@@ -29,6 +28,8 @@ public class RoundEvent : MonoBehaviour
 
     private void Start()
     {
+        if (current != null) { Destroy(this); }
+        current = this;
         roundScript = this.GetComponentInParent<RoundScript>();
         cam = Camera.main;
     }
@@ -46,12 +47,7 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
-        if (customValue)
-        {
-            StartCoroutine(ImpactEffect());
-            return;
-        }
-
+        Debug.Log("Run");
         short damageTaken = 0;
         int[] attackRound = new int[5];
 
@@ -59,57 +55,58 @@ public class RoundEvent : MonoBehaviour
         {
             case RoundScript.RoundEnum.Blizzard:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
-                return;
+                break;
             case RoundScript.RoundEnum.Catapult:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
-                return;
+                break;
             case RoundScript.RoundEnum.Cloudy:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy];
-                return;
+                break;
             case RoundScript.RoundEnum.Drizzle:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle];
-                return;
+                break;
             case RoundScript.RoundEnum.DryStorm:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
-                return;
+                break;
             case RoundScript.RoundEnum.Fire:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
-                return;
+                break;
             case RoundScript.RoundEnum.Earthquake:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
-                return;
+                break;
             case RoundScript.RoundEnum.Frost:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
-                return;
+                break;
             case RoundScript.RoundEnum.Hail:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
-                return;
+                break;
             case RoundScript.RoundEnum.HeatWave:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
-                return;
+                break;
             case RoundScript.RoundEnum.Monsoon:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon];
-                return;
+                break;
             case RoundScript.RoundEnum.Plague:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Plague];
-                return;
+                break;
             case RoundScript.RoundEnum.Solarium:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Solarium];
-                return;
+                break;
             case RoundScript.RoundEnum.Storm:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Storm];
-                return;
+                break;
             case RoundScript.RoundEnum.Sunny:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Sunny];
-                return;
+                break;
             case RoundScript.RoundEnum.Wind:
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Wind];
-                return;
+                break;
         }
 
         for (int i = 0; i < 5; i++)
         {
             short result = (short)(attackRound[i] - TreeScript.current.ResistanceBonuses[i]);
+            Debug.Log("Resultado: " + result);
             if (result > 0)
             {
                 damageTaken += result;

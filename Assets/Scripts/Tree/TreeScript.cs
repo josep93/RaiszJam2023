@@ -23,7 +23,7 @@ public class TreeScript : MonoBehaviour
         TreeRenderScript.current.UpdateSprites();
     }
 
-   bool UpgradablePerks()
+    public List<Perk.PerkEnum> UpgradablePerks()
     {
         upgradablePerks = new List<Perk.PerkEnum>();
         List<Perk.PerkEnum> availablePerks = Perk.AvailablePerks();
@@ -32,17 +32,18 @@ public class TreeScript : MonoBehaviour
         int options = 3;
         options = availablePerks.Count < options ? availablePerks.Count : options;
 
-        if (options <= 0) return false;
+        if (options <= 0) return availablePerks;
 
-        for(int i = 0; i<options; i++)
+        for (int i = 0; i < options; i++)
         {
-            int integer = random.Next(0,availablePerks.Count-1);
+            int integer = random.Next(0, availablePerks.Count - 1);
             upgradablePerks.Add(availablePerks[integer]);
             availablePerks.Remove(availablePerks[integer]);
         }
 
-        return true;
+        return availablePerks;
     }
+        
 
     /// <summary>
     /// Updates the Bonuses array. Should be used in round startup.

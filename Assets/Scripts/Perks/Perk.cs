@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Perk
+public class Perk
 {
     protected enum ResistancesEnum : short
     {
@@ -39,7 +39,7 @@ public abstract class Perk
         WoodWarm
     }
 
-    public List<String> PerkStringList = new List<String>
+    public static List<String> PerkStringList = new List<String>
     {
         "Branch fine",
         "Branch thick",
