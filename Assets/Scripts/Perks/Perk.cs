@@ -49,8 +49,16 @@ public abstract class Perk
     public void Run()
     {
     }
-
-    public static bool CheckViability(PerkEnum perkChosen)
+    public static List<PerkEnum> AvailablePerks()
+    {
+        List<PerkEnum> available = new List<PerkEnum>();
+        foreach (PerkEnum perk in (PerkEnum[]) Enum.GetValues(typeof(PerkEnum)))
+        {
+            if (CheckViability(perk)) available.Add(perk);
+        }
+        return available;
+    }
+    private static bool CheckViability(PerkEnum perkChosen)
     {
         if (activePerks.Contains(perkChosen)) return false;
         switch (perkChosen)
