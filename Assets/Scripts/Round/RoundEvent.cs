@@ -53,7 +53,7 @@ public class RoundEvent : MonoBehaviour
     {
         if (customValue)
         {
-            StartCoroutine(TempestEffect());
+            StartCoroutine(ImpactEffect());
             return;
         }
 
@@ -233,6 +233,38 @@ public class RoundEvent : MonoBehaviour
         // Size
         camSize = 9f;
         speedSize = 0.0126f;
+
+
+        // Otros efectos aparte de la c�mara
+
+        yield return new WaitForSeconds(2);
+
+        // Esperamos al c�lculo
+        moving = false;
+        yield return new WaitForSeconds(1);
+
+        // Retomamos la c�mara
+        moving = true;
+        RestartVar(speedPosticion, speedRotation, speedSize);
+    }
+
+    IEnumerator ImpactEffect()
+    {
+        // Camera effects
+        moving = true;
+
+        // Position
+        xPosticion = -0.5f;
+        yPosticion = 2;
+        speedPosticion = 0.03f;
+
+        // Rotation
+        camRotation = 2;
+        speedRotation = 0.02f;
+
+        // Size
+        camSize = 8f;
+        speedSize = 0.03f;
 
 
         // Otros efectos aparte de la c�mara
