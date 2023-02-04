@@ -38,6 +38,7 @@ public class RoundScript : MonoBehaviour
         Torsion
     }
 
+    private short roundNumber = 0;
     private List<RoundEnum> RoundsSoft = new List<RoundEnum> { RoundEnum.Cloudy, RoundEnum.Sunny, RoundEnum.Drizzle, RoundEnum.Solarium, RoundEnum.Wind };
     private List<RoundEnum> RoundsMedi = new List<RoundEnum> { RoundEnum.DryStorm, RoundEnum.Earthquake, RoundEnum.Hail, RoundEnum.Blizzard, RoundEnum.Storm, RoundEnum.Plague };
     private List<RoundEnum> RoundsHard = new List<RoundEnum> { RoundEnum.Catapult, RoundEnum.Fire, RoundEnum.Frost, RoundEnum.HeatWave, RoundEnum.Monsoon };
@@ -62,7 +63,7 @@ public class RoundScript : MonoBehaviour
         {RoundEnum.Wind, new int[]       {0, 0, 0, 0, 3 }}  // Soft
     };
 
-    List<RoundEnum> roundList = new List<RoundEnum>();
+    List<RoundEnum> roundList = new();
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +85,7 @@ public class RoundScript : MonoBehaviour
         //Deactivate Hud
 
         TreeScript.current.UpdateBonuses();
-        roundEvent.Run();
+        roundEvent.Run(roundList[roundNumber]);
         hud.SetActive(false);
     }
 

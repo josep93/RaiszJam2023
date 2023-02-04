@@ -1010,8 +1010,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f4257057a318b458b4c0b009b60968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zPos: -23.48
-  tVal: 0.01
+  moving: 0
+  speedPosticion: 0
+  xPosticion: 0
+  yPosticion: 0
+  speedRotation: 0
+  camRotation: 0
+  camSize: 10.75
+  speedSize: 0.0125
 --- !u!1 &1415489431
 GameObject:
   m_ObjectHideFlags: 0
