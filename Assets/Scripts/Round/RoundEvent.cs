@@ -56,100 +56,52 @@ public class RoundEvent : MonoBehaviour
         switch (round)
         {
             case RoundScript.RoundEnum.Blizzard:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
                 return;
             case RoundScript.RoundEnum.Catapult:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Catapult][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
                 return;
             case RoundScript.RoundEnum.Cloudy:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy];
                 return;
             case RoundScript.RoundEnum.Drizzle:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle];
                 return;
             case RoundScript.RoundEnum.DryStorm:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
                 return;
             case RoundScript.RoundEnum.Fire:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
                 return;
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Fire][i];
-                }
             case RoundScript.RoundEnum.Earthquake:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
                 return;
             case RoundScript.RoundEnum.Frost:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Frost][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
                 return;
             case RoundScript.RoundEnum.Hail:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Hail][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
                 return;
             case RoundScript.RoundEnum.HeatWave:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
                 return;
             case RoundScript.RoundEnum.Monsoon:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon];
                 return;
             case RoundScript.RoundEnum.Plague:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Plague][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Plague];
                 return;
             case RoundScript.RoundEnum.Solarium:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Solarium][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Solarium];
                 return;
             case RoundScript.RoundEnum.Storm:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Storm][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Storm];
                 return;
             case RoundScript.RoundEnum.Sunny:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Sunny][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Sunny];
                 return;
             case RoundScript.RoundEnum.Wind:
-                for (int i = 0; i < 5; i++)
-                {
-                    attackRound[i] = roundScript.RoundDict[RoundScript.RoundEnum.Wind][i];
-                }
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Wind];
                 return;
         }
 
