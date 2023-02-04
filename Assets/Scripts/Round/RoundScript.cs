@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.UI;
 
 public class RoundScript : MonoBehaviour
 {
@@ -144,7 +145,7 @@ public class RoundScript : MonoBehaviour
         while (i > 0){
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
-                new Vector3(280, btn.transform.position.y, 0),
+                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
                 speed);
             i--;
             yield return new WaitForSeconds(0.01f);
@@ -173,7 +174,7 @@ public class RoundScript : MonoBehaviour
         {
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
-                new Vector3(280, btn.transform.position.y, 0),
+                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
                 -speed);
             i--;
             yield return new WaitForSeconds(0.01f);
