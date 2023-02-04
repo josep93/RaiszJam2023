@@ -8,7 +8,7 @@ public class RoundEvent : MonoBehaviour
     private RoundScript roundScript;
     private Camera cam;
 
-    private bool customValue = true;
+    private bool customValue = true; // Jose Luis
 
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
@@ -42,11 +42,6 @@ public class RoundEvent : MonoBehaviour
             Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(0, 0, camRotation), speedRotation)  // Rotation
             );
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, camSize, speedSize);  // Tama�o c�mara
-    }
-
-    public enum Eventos : byte
-    {
-        LabRound
     }
 
     public void Run(RoundScript.RoundEnum round)
@@ -124,19 +119,6 @@ public class RoundEvent : MonoBehaviour
         //CustomEvent(Eventos.LabRound);
     }
 
-
-    public void CustomEvent(Eventos cEvent)
-    {
-        
-        switch (cEvent)
-        {
-            case Eventos.LabRound:
-                StartCoroutine(LabRound());
-                break;
-            default:
-                break;
-        }
-    }
 
     /// <summary>
     /// Reinica las variables de movimiento y bloquea el c�lculo en el Update

@@ -9,6 +9,7 @@ public class RoundScript : MonoBehaviour
 {
     RoundEvent roundEvent;
     private GameObject hud;
+    public static RoundScript instance = null;
 
     public enum RoundEnum : short
     {
@@ -68,6 +69,10 @@ public class RoundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Singelton
+        if (instance != null) { Destroy(this.gameObject); }
+        instance = this;
+
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
 
