@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,16 +54,24 @@ public class InitMenuScript : MonoBehaviour
 
         float i = 1;
         Image[] fkBtn = fakeCanvas.GetComponentsInChildren<Image>();
+        TextMeshProUGUI[] fkLetter = fakeCanvas.GetComponentsInChildren<TextMeshProUGUI>();
 
+        
         yield return null;
         while (i > 0)
         {
             i -= 0.1f;
             // Cambiar el alpha de los botones   
-            var cColor = fkBtn[0].color;
+            Color cColor = fkBtn[0].color;
             cColor.a = i;
             fkBtn[0].color = cColor;
             fkBtn[1].color = cColor;
+
+            // Cambiar el alpha de las letras
+            cColor = fkLetter[0].color;
+            cColor.a = i;
+            fkLetter[0].color = cColor;
+            fkLetter[1].color = cColor;
 
             yield return new WaitForSeconds(0.11f);
         }
