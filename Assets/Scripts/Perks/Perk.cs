@@ -64,6 +64,18 @@ public abstract class Perk
         "Wood warm"
     };
 
+    public static void TestPerks()
+    {
+        activePerks.Add(PerkEnum.RootAdventitious);
+        activePerks.Add(PerkEnum.RootLateral);
+        activePerks.Add(PerkEnum.RootMain);
+
+
+        activePerks.Add(PerkEnum.Thorns);
+        activePerks.Add(PerkEnum.BranchFine);
+        activePerks.Add(PerkEnum.BranchThick);
+    }
+
     private static HashSet<PerkEnum> activePerks = new HashSet<PerkEnum>();
 
     protected short[] resistanceBonuses = new short[5];
