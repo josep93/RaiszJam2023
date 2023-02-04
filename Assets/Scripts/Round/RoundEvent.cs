@@ -116,9 +116,8 @@ public class RoundEvent : MonoBehaviour
             }
         }
 
-        //CustomEvent(Eventos.LabRound);
+        TreeScript.current.Health -= damageTaken;
     }
-
 
     /// <summary>
     /// Reinica las variables de movimiento y bloquea el c�lculo en el Update
