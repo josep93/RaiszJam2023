@@ -15,6 +15,7 @@ public class TreeScript : MonoBehaviour
     void Start()
     {
         current = this;
+        perks = new List<Perk>();
     }
 
    bool UpgradablePerks()
