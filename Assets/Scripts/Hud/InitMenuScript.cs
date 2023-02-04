@@ -9,7 +9,6 @@ public class InitMenuScript : MonoBehaviour
 
     [SerializeField] private GameObject btnPlay;
     [SerializeField] private GameObject btnExit;
-    [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject fakeCanvas;
     [SerializeField] private float speed;
     
@@ -44,7 +43,8 @@ public class InitMenuScript : MonoBehaviour
         GameObject gCamera = Camera.main.gameObject;
         Camera cam = gCamera.GetComponent<Camera>();
 
-        canvas.SetActive(false);
+        btnPlay.SetActive(false);
+        btnExit.SetActive(false);
         fakeCanvas.SetActive(true);
         
         while (i <= 10.75f) {

@@ -8,6 +8,10 @@ using Unity.Mathematics;
 public class RoundScript : MonoBehaviour
 {
     RoundEvent roundEvent;
+    private GameObject hud;
+
+
+    
     public enum RoundEnum : short
     {
         Blizzard,
@@ -65,6 +69,8 @@ public class RoundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        roundEvent = this.GetComponentInChildren<RoundEvent>();
+        hud = GameObject.FindGameObjectWithTag("Hud");
 
     }
 
@@ -80,11 +86,13 @@ public class RoundScript : MonoBehaviour
 
         TreeScript.current.UpdateBonuses();
         roundEvent.Run();
+        hud.SetActive(false);
     }
 
     public void EndRound()
     {
         //Activate Hud
+        hud.SetActive(true);
 
     }
 
