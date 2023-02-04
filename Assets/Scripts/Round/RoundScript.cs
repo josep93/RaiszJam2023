@@ -69,13 +69,10 @@ public class RoundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-<<<<<<< Updated upstream
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
 
-=======
         RoundsGameGeneration();
->>>>>>> Stashed changes
     }
 
     // Update is called once per frame

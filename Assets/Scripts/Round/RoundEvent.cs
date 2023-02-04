@@ -9,12 +9,11 @@ public class RoundEvent : MonoBehaviour
     private Camera cam;
 
     [SerializeField] float zPos = -10f;
-    [SerializeField] float tVal = 0.5f;
+    [SerializeField] float tVal = 0.2f;
 
     private void Start()
     {
         roundScript = this.GetComponentInParent<RoundScript>();
-
         cam = Camera.main;
     }
 
@@ -45,11 +44,11 @@ public class RoundEvent : MonoBehaviour
     #region LabRound
     IEnumerator LabRound()
     {
-        int i = 10;
+        float i = 10;
         while (i > 0)
         {
-            cam.transform.rotation = Quaternion.Lerp(cam.transform.rotation, Quaternion.Euler(0, 0, zPos), tVal);
-            i--;
+            cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(0, 0, zPos), tVal);
+            i -= 0.25f;
             yield return new  WaitForSeconds(0.01f);
         }
 
