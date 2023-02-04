@@ -57,6 +57,7 @@ public class InitMenuScript : MonoBehaviour
 
         // Al finalizar la transicción, eliminar el fakeCcanvas
         Destroy(fakeCanvas);
+        GameObject.Find("btnLab").SetActive(true);
     }
 
     IEnumerator HideFakeButtons()
