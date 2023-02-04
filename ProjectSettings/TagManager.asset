@@ -47,3 +47,6 @@ TagManager:
   - name: Tree
     uniqueID: 2275037063
     locked: 0
+  - name: Hud
+    uniqueID: 482800757
+    locked: 0

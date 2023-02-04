@@ -71,7 +71,7 @@ public class InitMenuScript : MonoBehaviour
         yield return null;
         while (i > 0)
         {
-            i -= 0.1f;
+            i -= 0.05f;
             // Cambiar el alpha de los botones   
             Color cColor = fkBtn[0].color;
             cColor.a = i;
@@ -84,7 +84,7 @@ public class InitMenuScript : MonoBehaviour
             fkLetter[0].color = cColor;
             fkLetter[1].color = cColor;
 
-            yield return new WaitForSeconds(0.11f);
+            yield return new WaitForSeconds(0.05f);
         }
 
     }
