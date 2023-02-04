@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.UI;
 
 public class RoundScript : MonoBehaviour
 {
     [SerializeField] private GameObject[] btnPerks;
+    [SerializeField] private float speed = 6;
 
     RoundEvent roundEvent;
     private GameObject hud;
@@ -127,10 +129,27 @@ public class RoundScript : MonoBehaviour
     IEnumerator ShowPerksAvalible()
     {
         yield return new WaitForSeconds(0.5f);
-        // 280
 
+        foreach (GameObject btn in btnPerks)
+        {
+            StartCoroutine(ShowButton(btn));
+            yield return new WaitForSeconds(0.25f);
+        }
 
+    }
 
+    IEnumerator ShowButton(GameObject btn)
+    {
+        int i = 30;
+
+        while (i > 0){
+            btn.transform.position = Vector3.MoveTowards(
+                btn.transform.position,
+                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
+                speed);
+            i--;
+            yield return new WaitForSeconds(0.01f);
+        }
 
     }
 
@@ -140,8 +159,28 @@ public class RoundScript : MonoBehaviour
     /// </summary>
     IEnumerator HidePerskAvalible()
     {
-        yield return null;
+        foreach (GameObject btn in btnPerks)
+        {
+            StartCoroutine(HideButton(btn));
+            yield return new WaitForSeconds(0.25f);
+        }
     }
+
+    IEnumerator HideButton(GameObject btn)
+    {
+        int i = 30;
+
+        while (i > 0)
+        {
+            btn.transform.position = Vector3.MoveTowards(
+                btn.transform.position,
+                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
+                -speed);
+            i--;
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
 
     private void RoundsGameGeneration()
     {
