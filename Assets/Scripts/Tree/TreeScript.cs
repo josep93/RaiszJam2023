@@ -14,6 +14,8 @@ public class TreeScript : MonoBehaviour
 
     public short[] ResistanceBonuses { get => resistanceBonuses; }
 
+    public short Health = 30;
+
     void Start()
     {
         current = this;

@@ -7,8 +7,12 @@ using Unity.Mathematics;
 
 public class RoundScript : MonoBehaviour
 {
+    [SerializeField] private GameObject[] btnPerks;
+
     RoundEvent roundEvent;
     private GameObject hud;
+    private bool isShow = false;
+    public static RoundScript instance = null;
 
     public enum RoundEnum : short
     {
@@ -38,7 +42,7 @@ public class RoundScript : MonoBehaviour
         Torsion
     }
 
-    private short roundNumber = 0;
+    public short roundNumber = 0;
     private List<RoundEnum> RoundsSoft = new List<RoundEnum> { RoundEnum.Cloudy, RoundEnum.Sunny, RoundEnum.Drizzle, RoundEnum.Solarium, RoundEnum.Wind };
     private List<RoundEnum> RoundsMedi = new List<RoundEnum> { RoundEnum.DryStorm, RoundEnum.Earthquake, RoundEnum.Hail, RoundEnum.Blizzard, RoundEnum.Storm, RoundEnum.Plague };
     private List<RoundEnum> RoundsHard = new List<RoundEnum> { RoundEnum.Catapult, RoundEnum.Fire, RoundEnum.Frost, RoundEnum.HeatWave, RoundEnum.Monsoon };
@@ -68,6 +72,10 @@ public class RoundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Singelton
+        if (instance != null) { Destroy(this.gameObject); }
+        instance = this;
+
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
 
@@ -94,6 +102,45 @@ public class RoundScript : MonoBehaviour
         //Activate Hud
         hud.SetActive(true);
 
+    }
+
+    /// <summary>
+    /// Alterna el estado de los botones de los perks
+    /// </summary>
+    public void ShowHidePerks()
+    {
+        // Muestra los perks
+        if (isShow) { 
+            StartCoroutine(HidePerskAvalible());
+            isShow = false;
+            return;
+        }
+
+        // Oculta los perks
+        StartCoroutine(ShowPerksAvalible());
+        isShow = true;
+    }
+
+    /// <summary>
+    /// Mostrar los botones con los perks disponibles
+    /// </summary>
+    IEnumerator ShowPerksAvalible()
+    {
+        yield return new WaitForSeconds(0.5f);
+        // 280
+
+
+
+
+    }
+
+
+    /// <summary>
+    /// Ocultar los botones de los perks disponibles
+    /// </summary>
+    IEnumerator HidePerskAvalible()
+    {
+        yield return null;
     }
 
     private void RoundsGameGeneration()

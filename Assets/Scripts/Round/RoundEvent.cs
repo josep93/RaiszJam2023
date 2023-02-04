@@ -8,15 +8,17 @@ public class RoundEvent : MonoBehaviour
     private RoundScript roundScript;
     private Camera cam;
 
+    private bool customValue = true; // Jose Luis
+
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
 
-    [Header("Variables de posición")]
+    [Header("Variables de posiciï¿½n")]
     [SerializeField] float speedPosticion = 0f;
     [SerializeField] float xPosticion = 0f;
     [SerializeField] float yPosticion = 0f;
 
-    [Header("Variables de rotación")]
+    [Header("Variables de rotaciï¿½n")]
     [SerializeField] float speedRotation = 0f;
     [SerializeField] float camRotation = 0f;
 
@@ -39,55 +41,86 @@ public class RoundEvent : MonoBehaviour
             new Vector3(xPosticion, yPosticion, cam.transform.position.z), speedPosticion), // New position, speed
             Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(0, 0, camRotation), speedRotation)  // Rotation
             );
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, camSize, speedSize);  // Tamaño cámara
-    }
-
-    public enum Eventos : byte
-    {
-        LabRound
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, camSize, speedSize);  // Tamaï¿½o cï¿½mara
     }
 
     public void Run(RoundScript.RoundEnum round)
     {
-        StartCoroutine(CalmEffect());
-        return;
+        if (customValue)
+        {
+            StartCoroutine(ImpactEffect());
+            return;
+        }
+
+        short damageTaken = 0;
+        int[] attackRound = new int[5];
+
         switch (round)
         {
-            case RoundScript.RoundEnum.Blizzard: return;
-            case RoundScript.RoundEnum.Catapult: return;
-            case RoundScript.RoundEnum.Cloudy: return;
-            case RoundScript.RoundEnum.Drizzle: return;
-            case RoundScript.RoundEnum.DryStorm: return;
-            case RoundScript.RoundEnum.Fire: return;
-            case RoundScript.RoundEnum.Earthquake: return;
-            case RoundScript.RoundEnum.Frost: return;
-            case RoundScript.RoundEnum.Hail: return;
-            case RoundScript.RoundEnum.HeatWave: return;
-            case RoundScript.RoundEnum.Monsoon: return;
-            case RoundScript.RoundEnum.Plague: return;
-            case RoundScript.RoundEnum.Solarium: return;
-            case RoundScript.RoundEnum.Storm: return;
-            case RoundScript.RoundEnum.Sunny: StartCoroutine(CalmEffect()); return;
-            case RoundScript.RoundEnum.Wind: return;
+            case RoundScript.RoundEnum.Blizzard:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
+                return;
+            case RoundScript.RoundEnum.Catapult:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
+                return;
+            case RoundScript.RoundEnum.Cloudy:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy];
+                return;
+            case RoundScript.RoundEnum.Drizzle:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle];
+                return;
+            case RoundScript.RoundEnum.DryStorm:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
+                return;
+            case RoundScript.RoundEnum.Fire:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
+                return;
+            case RoundScript.RoundEnum.Earthquake:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
+                return;
+            case RoundScript.RoundEnum.Frost:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
+                return;
+            case RoundScript.RoundEnum.Hail:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
+                return;
+            case RoundScript.RoundEnum.HeatWave:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
+                return;
+            case RoundScript.RoundEnum.Monsoon:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon];
+                return;
+            case RoundScript.RoundEnum.Plague:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Plague];
+                return;
+            case RoundScript.RoundEnum.Solarium:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Solarium];
+                return;
+            case RoundScript.RoundEnum.Storm:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Storm];
+                return;
+            case RoundScript.RoundEnum.Sunny:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Sunny];
+                return;
+            case RoundScript.RoundEnum.Wind:
+                attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Wind];
+                return;
         }
-    }
 
-
-    public void CustomEvent(Eventos cEvent)
-    {
-        
-        switch (cEvent)
+        for (int i = 0; i < 5; i++)
         {
-            case Eventos.LabRound:
-                StartCoroutine(LabRound());
-                break;
-            default:
-                break;
+            short result = (short)(attackRound[i] - TreeScript.current.ResistanceBonuses[i]);
+            if (result > 0)
+            {
+                damageTaken += result;
+            }
         }
+
+        TreeScript.current.Health -= damageTaken;
     }
 
     /// <summary>
-    /// Reinica las variables de movimiento y bloquea el cálculo en el Update
+    /// Reinica las variables de movimiento y bloquea el cï¿½lculo en el Update
     /// </summary>
     private void RestartVar(float speedPosticion = 0f, float speedRotation = 0f, float speedSize = 0f)
     {
@@ -151,15 +184,15 @@ public class RoundEvent : MonoBehaviour
         speedSize = 0.0063f;
 
 
-        // Otros efectos aparte de la cámara
+        // Otros efectos aparte de la cï¿½mara
 
         yield return new WaitForSeconds(3);
 
-        // Esperamos al cálculo
+        // Esperamos al cï¿½lculo
         moving = false;
         yield return new WaitForSeconds(1);
         
-        // Retomamos la cámara
+        // Retomamos la cï¿½mara
         moving = true;
         RestartVar(0, speedRotation, speedSize);
     }
@@ -168,24 +201,64 @@ public class RoundEvent : MonoBehaviour
     {
         // Camera effects
         moving = true;
-        camRotation = -1f;
-        speedRotation = 0.005f;
 
+        // Position
+        xPosticion = 2;
+        yPosticion = 1;
+        speedPosticion = 0.03f;
+        
+        // Rotation
+        camRotation = -1.5f;
+        speedRotation = 0.01f;
+
+        // Size
         camSize = 9f;
-        speedSize = 0.0063f;
+        speedSize = 0.0126f;
 
 
-        // Otros efectos aparte de la cámara
+        // Otros efectos aparte de la cï¿½mara
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
-        // Esperamos al cálculo
+        // Esperamos al cï¿½lculo
         moving = false;
         yield return new WaitForSeconds(1);
 
-        // Retomamos la cámara
+        // Retomamos la cï¿½mara
         moving = true;
-        RestartVar(0, speedRotation, speedSize);
+        RestartVar(speedPosticion, speedRotation, speedSize);
+    }
+
+    IEnumerator ImpactEffect()
+    {
+        // Camera effects
+        moving = true;
+
+        // Position
+        xPosticion = -0.5f;
+        yPosticion = 2;
+        speedPosticion = 0.03f;
+
+        // Rotation
+        camRotation = 2;
+        speedRotation = 0.02f;
+
+        // Size
+        camSize = 8f;
+        speedSize = 0.03f;
+
+
+        // Otros efectos aparte de la cï¿½mara
+
+        yield return new WaitForSeconds(2);
+
+        // Esperamos al cï¿½lculo
+        moving = false;
+        yield return new WaitForSeconds(1);
+
+        // Retomamos la cï¿½mara
+        moving = true;
+        RestartVar(speedPosticion, speedRotation, speedSize);
     }
 
     #endregion

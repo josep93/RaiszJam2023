@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hud
+  - Back
+  - Front
   layers:
   - Default
   - TransparentFX
@@ -47,6 +49,9 @@ TagManager:
     locked: 0
   - name: Tree
     uniqueID: 2275037063
+    locked: 0
+  - name: Front
+    uniqueID: 690855609
     locked: 0
   - name: Hud
     uniqueID: 482800757
