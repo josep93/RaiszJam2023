@@ -115,7 +115,6 @@ public class RoundScript : MonoBehaviour
     /// </summary>
     public void ShowHidePerks()
     {
-        Debug.Log("Is Shownig: " + isShow);
         // Muestra los perks
         if (isShow) { 
             StartCoroutine(HidePerskAvalible());
@@ -137,8 +136,10 @@ public class RoundScript : MonoBehaviour
 
         upgradablePerks = TreeScript.current.UpgradablePerks();
         int i = 0;
+
         foreach (GameObject btn in btnPerks)
         {
+            if (i >= upgradablePerks.Count) { break; }
             StartCoroutine(ShowButton(btn, (int)upgradablePerks[i]));
             i++;
             yield return new WaitForSeconds(0.25f);
@@ -200,6 +201,8 @@ public class RoundScript : MonoBehaviour
     /// <param name="indexPerk"></param>
     public void ActivePerk(int indexPerk)
     {
+        Debug.Log("Running round: " + roundNumber);
+        Debug.Log("Round running: " + roundList[roundNumber]);
         roundEvent.Run(roundList[roundNumber]);
         roundNumber++;
 
