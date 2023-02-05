@@ -1,0 +1,16 @@
+Blizzard:Ventisca		ventisca_bg.png		ventisca_fg.png
+Catapult:Catapulta		base_bg.png			catapulta_fg.png
+Cloudy:Nublado			nublado_bg.png
+Drizzle:Llovizna		base_bg.png			llovizna_fg.png
+DryStorm:Tormenta_seca	tormenta_bg.png		tormenta_seca_fg.png
+Earthquake:Terremoto	terremoto_bg.png	terremoto_fg.png
+Fire:Incendio			incendio_bg.png		incendio_fg.png
+Frost:Helada			helada_bg.png		helada_fg.png
+Hail:Granizo			nublado_bg.png		granizo_fg.png
+HeatWave:Ola_de_calor	ola_calor_bg.png
+Monsoon:Monzón			nublado_bg.png		monzon_fg.png
+Plague:Plaga			plaga_bg.png		plaga_fg.png
+Solarium:Solana			solana_bg.png
+Storm:Tormenta			tormenta_bg.png		tormenta_fg.png
+Sunny:Soleado			soleado_bg.png
+Wind:Viento				base_bg.png			viento_fg.png

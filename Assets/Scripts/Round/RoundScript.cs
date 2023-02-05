@@ -121,7 +121,8 @@ public class RoundScript : MonoBehaviour
     public void ShowHideButtonsPerks()
     {
         // Muestra los perks
-        if (isShow) { 
+        if (isShow)
+        {
             StartCoroutine(HidePerskAvalible());
             return;
         }
@@ -136,11 +137,11 @@ public class RoundScript : MonoBehaviour
     #region Mostrar mitad
     
     /// <summary>
-    /// Mostrar la mitad del botón de Siguiente ronda
+    /// Mostrar la mitad del botï¿½n de Siguiente ronda
     /// </summary>
     public void ShowHalfNextRound()
     {
-        // Mostrar el botón pero estando desactivado
+        // Mostrar el botï¿½n pero estando desactivado
         btnNextRound.SetActive(true);
         btnNextRound.GetComponent<Button>().enabled = false;
         StartCoroutine(ShowHalfBtn());
@@ -173,11 +174,11 @@ public class RoundScript : MonoBehaviour
 
     #region Mostrar completo
     /// <summary>
-    /// Mostrar y activar botón de siguiente ronda
+    /// Mostrar y activar botï¿½n de siguiente ronda
     /// </summary>
     public void ShowFullNextRound()
     {
-        // Mostrar el botón completo y activarlo
+        // Mostrar el botï¿½n completo y activarlo
         StartCoroutine(ShowFullBtn());
     }
 
@@ -209,7 +210,7 @@ public class RoundScript : MonoBehaviour
 
     #region Ocultar
     /// <summary>
-    /// Ocular botón de Siguiente ronda
+    /// Ocular botï¿½n de Siguiente ronda
     /// </summary>
     public void HideNextRoundBtn()
     {
@@ -243,7 +244,7 @@ public class RoundScript : MonoBehaviour
             i++;
             yield return new WaitForSeconds(0.25f);
         }
-        
+
     }
 
     IEnumerator ShowButton(GameObject btn, int index)
@@ -252,7 +253,8 @@ public class RoundScript : MonoBehaviour
 
         btn.GetComponentInChildren<TextMeshProUGUI>().text = Perk.PerkStringList[index];
 
-        while (i > 0){
+        while (i > 0)
+        {
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
                 new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
@@ -276,13 +278,12 @@ public class RoundScript : MonoBehaviour
             StartCoroutine(HideButton(btn));
             yield return new WaitForSeconds(0.25f);
         }
-        
+
     }
 
     IEnumerator HideButton(GameObject btn)
     {
         int i = 30;
-
         while (i > 0)
         {
             btn.transform.position = Vector3.MoveTowards(
@@ -330,7 +331,7 @@ public class RoundScript : MonoBehaviour
 
     private void RoundsGameGeneration()
     {
-        // Fisher–Yates shuffle algorithm
+        // Fisherï¿½Yates shuffle algorithm
         List<int> mediRounds = new List<int> { 0, 0, 1, 1, 1 };
         List<int> hardRounds = new List<int> { 1, 2, 2 };
 
@@ -362,7 +363,7 @@ public class RoundScript : MonoBehaviour
         }
 
         for (int i = 0; i < 5; i++)
-        {            
+        {
             if (mediRounds[i] == 0)
             {
                 int rnd = UnityEngine.Random.Range(0, 5);
