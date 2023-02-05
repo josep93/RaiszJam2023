@@ -103,7 +103,6 @@ public class RoundScript : MonoBehaviour
         TreeScript.current.UpdateBonuses();
         roundEvent.Run(roundList[roundNumber]);
         roundNumber++;
-        Debug.Log("Ronda lanzada");
 
         //hud.SetActive(false);
     }

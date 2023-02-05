@@ -11,12 +11,14 @@ public class RoundEvent : MonoBehaviour
 {
     private RoundScript roundScript;
     private Camera cam;
+    private AudioSource audio;
     public static RoundEvent current = null;
 
     [Header("Datos de efectos")]
     [SerializeField] private Sprite[] backgrounds;
     [SerializeField] private SpriteRenderer backgroundEffect;
     [SerializeField] private SpriteRenderer frontEffect;
+    [SerializeField] private AudioClip[] clips;
 
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
@@ -40,6 +42,9 @@ public class RoundEvent : MonoBehaviour
         if (current != null) { Destroy(this); }
         current = this;
         roundScript = this.GetComponentInParent<RoundScript>();
+        audio = this.GetComponent<AudioSource>();
+        audio.loop = false;
+        audio.playOnAwake = false;
         cam = Camera.main;
     }
 
@@ -62,67 +67,67 @@ public class RoundEvent : MonoBehaviour
         switch (round)
         {
             case RoundScript.RoundEnum.Blizzard:
-                ActiveEffect(14, 15, 1);
+                ActiveEffect(14, 15, 1, 14);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
                 break;
-            case RoundScript.RoundEnum.Catapult:    // PENDIENTE
-                ActiveEffect(0, 0, 0);
+            case RoundScript.RoundEnum.Catapult:
+                ActiveEffect(0, -1, 0, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
                 break;
             case RoundScript.RoundEnum.Cloudy:
-                ActiveEffect(4, -1, 0);
+                ActiveEffect(4, -1, 0, 8);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy];
                 break;
             case RoundScript.RoundEnum.Drizzle:
-                ActiveEffect(0, 2, 0);
+                ActiveEffect(0, 2, 0, 10);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle];
                 break;
             case RoundScript.RoundEnum.DryStorm:
-                ActiveEffect(11, 13, 1);
+                ActiveEffect(11, 13, 1, 1);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
                 break;
-            case RoundScript.RoundEnum.Fire:    // PENDIENTE
-                ActiveEffect(5, 0, 2);
+            case RoundScript.RoundEnum.Fire:
+                ActiveEffect(5, -1, 2, 3);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
                 break;
             case RoundScript.RoundEnum.Earthquake:
-                ActiveEffect(9, 10, 2);
+                ActiveEffect(9, 10, 2, 2);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
                 break;
-            case RoundScript.RoundEnum.Frost:   // PENDIENTE
-                ActiveEffect(5, 0, 0);
+            case RoundScript.RoundEnum.Frost:
+                ActiveEffect(5, -1, 0, 6);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
                 break;
-            case RoundScript.RoundEnum.Hail:    
-                ActiveEffect(4, 1, 2);
+            case RoundScript.RoundEnum.Hail:
+                ActiveEffect(4, 1, 2, 4);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
                 break;
-            case RoundScript.RoundEnum.HeatWave: // PENDIENTE
-                ActiveEffect(5, 0, 0);
+            case RoundScript.RoundEnum.HeatWave:
+                ActiveEffect(5, -1, 0, 5);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
                 break;
-            case RoundScript.RoundEnum.Monsoon: 
-                ActiveEffect(4, 3, 1);
+            case RoundScript.RoundEnum.Monsoon:
+                ActiveEffect(4, 3, 1, 7);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon];
                 break;
             case RoundScript.RoundEnum.Plague:
-                ActiveEffect(5, 6, 2);
+                ActiveEffect(5, 6, 2, 9);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Plague];
                 break;
             case RoundScript.RoundEnum.Solarium:
-                ActiveEffect(7, -1, 0);
+                ActiveEffect(7, -1, 0, 11);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Solarium];
                 break;
             case RoundScript.RoundEnum.Storm:
-                ActiveEffect(11, 12, 1);
+                ActiveEffect(11, 12, 1, 13);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Storm];
                 break;
             case RoundScript.RoundEnum.Sunny:
-                ActiveEffect(8, -1, 0);
+                ActiveEffect(8, -1, 0, 12);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Sunny];
                 break;
             case RoundScript.RoundEnum.Wind:
-                ActiveEffect(0, 16, 1);
+                ActiveEffect(0, 16, 1, 15);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Wind];
                 break;
         }
@@ -141,10 +146,12 @@ public class RoundEvent : MonoBehaviour
 
 
     #region Controlador de efectos
-    private void ActiveEffect(int indexBack, int indexFront, int effects)
+    private void ActiveEffect(int indexBack, int indexFront, int effects, int indexAudio)
     {
         
         backgroundEffect.sprite = backgrounds[indexBack];
+        audio.clip = clips[indexAudio];
+        audio.Play();
         StartCoroutine(ShowBackEffects());
 
         if (indexFront >= 0)
@@ -197,7 +204,7 @@ public class RoundEvent : MonoBehaviour
         }
     }
 
-    IEnumerator HideFronEffects()
+    IEnumerator HideBackEffects()
     {
         float i = 1;
 
@@ -210,6 +217,22 @@ public class RoundEvent : MonoBehaviour
 
             yield return new WaitForSeconds(0.005f);
         }
+    }
+
+    IEnumerator HideFrontEffects()
+    {
+        float i = 1;
+
+        while (i > 0)
+        {
+            i -= 0.01f;
+            Color aux = frontEffect.color;
+            aux.a = i;
+            frontEffect.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+        frontEffect.sprite = null;
     }
     #endregion
 
@@ -297,7 +320,8 @@ public class RoundEvent : MonoBehaviour
         // Retomamos la c�mara
         moving = true;
         RestartCam(0, speedRotation, speedSize);
-        StartCoroutine(HideFronEffects());
+        StartCoroutine(HideBackEffects());
+        StartCoroutine(HideFrontEffects());
     }
 
     IEnumerator TempestEffect()
@@ -336,7 +360,8 @@ public class RoundEvent : MonoBehaviour
         // Retomamos la c�mara
         moving = true;
         RestartCam(speedPosticion, speedRotation, speedSize);
-        StartCoroutine(HideFronEffects());
+        StartCoroutine(HideBackEffects());
+        StartCoroutine(HideFrontEffects());
     }
 
     IEnumerator ImpactEffect()
@@ -375,7 +400,8 @@ public class RoundEvent : MonoBehaviour
         // Retomamos la c�mara
         moving = true;
         RestartCam(speedPosticion, speedRotation, speedSize);
-        StartCoroutine(HideFronEffects());
+        StartCoroutine(HideBackEffects());
+        StartCoroutine(HideFrontEffects());
     }
 
     private void Mortis()

@@ -3234,6 +3234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1312785928}
   - component: {fileID: 1312785929}
+  - component: {fileID: 1312785930}
   m_Layer: 0
   m_Name: Round
   m_TagString: Untagged
@@ -3286,8 +3287,25 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 618ee8f960087db4389c44af881a4552, type: 3}
   - {fileID: 21300000, guid: f6523eee952d6ef4abdc5c0c728eaef2, type: 3}
   - {fileID: 21300000, guid: aafd91f2f5391cf49906d5a0b2894874, type: 3}
-  backgroundEffect: {fileID: 1564649752}
+  backgroundEffect: {fileID: 1690158867}
   frontEffect: {fileID: 312747915}
+  clips:
+  - {fileID: 8300000, guid: 89b083a633e6dd24a8fce529634aab99, type: 3}
+  - {fileID: 8300000, guid: cadca8abf48b77e44988ff4b258b1cbb, type: 3}
+  - {fileID: 8300000, guid: 15f6f35391467a845af6807519851405, type: 3}
+  - {fileID: 8300000, guid: f6068ab30efffe546bfe9158144b736c, type: 3}
+  - {fileID: 8300000, guid: e8fffb674dab88c4abe9a30c4c2f9990, type: 3}
+  - {fileID: 8300000, guid: f1e09f772516df547ad20214156927d8, type: 3}
+  - {fileID: 8300000, guid: aafd7d813c8bf2946a8ad9e772c2b904, type: 3}
+  - {fileID: 8300000, guid: 010bf7f5c577ae34cbb329abae04045a, type: 3}
+  - {fileID: 8300000, guid: d7ef78f2c57646b4d80f992be3810940, type: 3}
+  - {fileID: 8300000, guid: 79184b50274c30d4cb6d3fbf0a4266a2, type: 3}
+  - {fileID: 8300000, guid: 7f198bfd5c18e6d44a66c993c3b5be00, type: 3}
+  - {fileID: 8300000, guid: c7038525d64020744b12a99b9a316ab3, type: 3}
+  - {fileID: 8300000, guid: 680fcbfd374187545a59eeb387ad64af, type: 3}
+  - {fileID: 8300000, guid: 53d48ba94763c9f429763313507c210e, type: 3}
+  - {fileID: 8300000, guid: c589f158b86d7b4409d2451c530bf3dd, type: 3}
+  - {fileID: 8300000, guid: a23dd0389d362c749a1d1960e771ddcc, type: 3}
   moving: 0
   speedPosticion: 0
   xPosticion: 0
@@ -3296,6 +3314,102 @@ MonoBehaviour:
   camRotation: 0
   camSize: 10.75
   speedSize: 0.0125
+--- !u!82 &1312785930
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312785927}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1415489431
 GameObject:
   m_ObjectHideFlags: 0
@@ -4885,7 +4999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1848259051
 RectTransform:
   m_ObjectHideFlags: 0
