@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TreeScript : MonoBehaviour
 {
@@ -27,7 +28,8 @@ public class TreeScript : MonoBehaviour
     {
         upgradablePerks = new List<Perk.PerkEnum>();
         List<Perk.PerkEnum> availablePerks = Perk.AvailablePerks();
-        System.Random random = new System.Random();
+
+        
 
         int options = 3;
         options = availablePerks.Count < options ? availablePerks.Count : options;
@@ -36,12 +38,12 @@ public class TreeScript : MonoBehaviour
 
         for (int i = 0; i < options; i++)
         {
-            int integer = random.Next(0, availablePerks.Count - 1);
+            int integer = Random.Range(0, availablePerks.Count); ;
             upgradablePerks.Add(availablePerks[integer]);
             availablePerks.Remove(availablePerks[integer]);
         }
 
-        return availablePerks;
+        return upgradablePerks;
     }
         
 

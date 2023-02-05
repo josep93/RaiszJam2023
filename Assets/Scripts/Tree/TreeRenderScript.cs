@@ -28,13 +28,13 @@ public class TreeRenderScript : MonoBehaviour
             return;
         }
 
-        if (RoundScript.instance.roundNumber > 8)
-        {
-            sprites[19].enabled = true;
-        }
-        else if (RoundScript.instance.roundNumber == 10)
+        if (RoundScript.instance.roundNumber == 9)
         {
             sprites[20].enabled = true;
+        }
+        else if (RoundScript.instance.roundNumber > 7)
+        {
+            sprites[19].enabled = true;
         }
 
         sprites[6].enabled = true;
@@ -72,9 +72,9 @@ public class TreeRenderScript : MonoBehaviour
             case (Perk.PerkEnum.LeavesFull):
                 return;
             case (Perk.PerkEnum.LeavesWaxed):
-                sprites[16].enabled = false;
-                sprites[17].enabled = false;
-                sprites[18].enabled = false;
+                sprites[16].enabled = true;
+                sprites[17].enabled = true;
+                sprites[18].enabled = true;
                 return;
             case (Perk.PerkEnum.RootAdventitious):
                 sprites[1].enabled = true;

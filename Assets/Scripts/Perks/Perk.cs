@@ -97,7 +97,12 @@ public class Perk
     }
     private static bool CheckViability(PerkEnum perkChosen)
     {
-        if (activePerks.Contains(perkChosen)) return false;
+        if (perkChosen == PerkEnum.GenericCold
+            || perkChosen == PerkEnum.GenericDrought
+            || perkChosen == PerkEnum.GenericHeat
+            || perkChosen == PerkEnum.GenericImpact
+            || perkChosen == PerkEnum.GenericTorsion) { }
+        else if (activePerks.Contains(perkChosen)) return false;
         switch (perkChosen)
         {
             case PerkEnum.BranchFine:
@@ -112,6 +117,9 @@ public class Perk
             case PerkEnum.Cork:
                 {
                     if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodDense)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodHard)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodWarm)) return false;
                     return true;
                 }
             case PerkEnum.FlexibleStem:
@@ -186,16 +194,25 @@ public class Perk
             case PerkEnum.WoodDense:
                 {
                     if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodHard)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodWarm)) return false;
+                    if (activePerks.Contains(PerkEnum.Cork)) return false;
                     return true;
                 }
             case PerkEnum.WoodHard:
                 {
                     if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodDense)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodWarm)) return false;
+                    if (activePerks.Contains(PerkEnum.Cork)) return false;
                     return true;
                 }
             case PerkEnum.WoodWarm:
                 {
                     if (!activePerks.Contains(PerkEnum.Wood)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodDense)) return false;
+                    if (activePerks.Contains(PerkEnum.WoodHard)) return false;
+                    if (activePerks.Contains(PerkEnum.Cork)) return false;
                     return true;
                 }
         }

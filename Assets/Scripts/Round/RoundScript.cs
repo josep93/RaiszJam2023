@@ -115,16 +115,16 @@ public class RoundScript : MonoBehaviour
     /// </summary>
     public void ShowHidePerks()
     {
-        Debug.Log("Is Shownig: " + isShow);
         // Muestra los perks
-        if (isShow) { 
+        if (isShow)
+        {
             StartCoroutine(HidePerskAvalible());
             return;
         }
 
         // Oculta los perks
         StartCoroutine(ShowPerksAvalible());
-        
+
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public class RoundScript : MonoBehaviour
             i++;
             yield return new WaitForSeconds(0.25f);
         }
-        
+
     }
 
     IEnumerator ShowButton(GameObject btn, int index)
@@ -152,7 +152,8 @@ public class RoundScript : MonoBehaviour
 
         btn.GetComponentInChildren<TextMeshProUGUI>().text = Perk.PerkStringList[index];
 
-        while (i > 0){
+        while (i > 0)
+        {
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
                 new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
@@ -175,13 +176,12 @@ public class RoundScript : MonoBehaviour
             StartCoroutine(HideButton(btn));
             yield return new WaitForSeconds(0.25f);
         }
-        
+
     }
 
     IEnumerator HideButton(GameObject btn)
     {
         int i = 30;
-
         while (i > 0)
         {
             btn.transform.position = Vector3.MoveTowards(
@@ -205,7 +205,7 @@ public class RoundScript : MonoBehaviour
 
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
-        
+
         ShowHidePerks();
 
     }
@@ -244,7 +244,7 @@ public class RoundScript : MonoBehaviour
         }
 
         for (int i = 0; i < 5; i++)
-        {            
+        {
             if (mediRounds[i] == 0)
             {
                 int rnd = UnityEngine.Random.Range(0, 5);
