@@ -31,12 +31,10 @@ public class TreeRenderScript : MonoBehaviour
         if (RoundScript.instance.roundNumber > 8)
         {
             sprites[19].enabled = true;
-            return;
         }
         else if (RoundScript.instance.roundNumber == 10)
         {
             sprites[20].enabled = true;
-            return;
         }
 
         sprites[6].enabled = true;
