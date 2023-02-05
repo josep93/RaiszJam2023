@@ -73,8 +73,8 @@ public class TreeRenderScript : MonoBehaviour
                 return;
             case (Perk.PerkEnum.LeavesWaxed):
                 sprites[16].enabled = true;
-                sprites[17].enabled = true;
-                sprites[18].enabled = true;
+                if (Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThick)) sprites[17].enabled = true;
+                if (Perk.ActivePerks.Contains(Perk.PerkEnum.BranchFine)) sprites[18].enabled = true;
                 return;
             case (Perk.PerkEnum.RootAdventitious):
                 sprites[1].enabled = true;
