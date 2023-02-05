@@ -11,7 +11,18 @@ public class InitMenuScript : MonoBehaviour
     [SerializeField] private GameObject btnExit;
     [SerializeField] private GameObject fakeCanvas;
     [SerializeField] private float speed;
-    
+
+    [SerializeField] private AudioClip[] clips;
+
+    AudioSource audio;
+
+    private void Start()
+    {
+        audio = GetComponent<AudioSource>();
+        audio.loop = false;
+        audio.playOnAwake = false;
+    }
+
     public void Play()
     {      
         try
@@ -89,6 +100,18 @@ public class InitMenuScript : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+    }
+
+    public void MenuButtonAudio()
+    {
+        audio.clip = clips[0];
+        audio.Play(0);
+    }
+
+    public void GameButtonAudio()
+    {
+        audio.clip = clips[1];
+        audio.Play(0);
     }
 
 }
