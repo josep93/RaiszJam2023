@@ -111,6 +111,7 @@ public class RoundScript : MonoBehaviour
     {
         //Activate Hud
         //hud.SetActive(true);
+        TreeRenderScript.current.UpdateSprites();
         ShowHideButtonsPerks();
     }
 
