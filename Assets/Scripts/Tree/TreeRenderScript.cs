@@ -23,7 +23,7 @@ public class TreeRenderScript : MonoBehaviour
             sprite.enabled = false;
         }
 
-        if (RoundScript.instance.roundNumber < 3) {
+        if (RoundScript.instance.roundNumber < 2) {
             sprites[0].enabled = true;
             return;
         }

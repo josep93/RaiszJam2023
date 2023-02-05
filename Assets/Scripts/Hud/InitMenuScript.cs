@@ -112,6 +112,14 @@ public class InitMenuScript : MonoBehaviour
     {
         audio.clip = clips[1];
         audio.Play(0);
+        StartCoroutine(GrowthSound());
     }
 
+    private IEnumerator GrowthSound()
+    {
+        yield return new WaitForSeconds(0.4f);
+        audio.clip = clips[2];
+        audio.Play(0);
+        Debug.Log("Suena");
+    }
 }
