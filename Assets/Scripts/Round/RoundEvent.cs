@@ -47,7 +47,6 @@ public class RoundEvent : MonoBehaviour
 
     public void Run(RoundScript.RoundEnum round)
     {
-        Debug.Log("Run");
         short damageTaken = 0;
         int[] attackRound = new int[5];
 
@@ -106,7 +105,6 @@ public class RoundEvent : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             short result = (short)(attackRound[i] - TreeScript.current.ResistanceBonuses[i]);
-            Debug.Log("Resultado: " + result);
             if (result > 0)
             {
                 damageTaken += result;
