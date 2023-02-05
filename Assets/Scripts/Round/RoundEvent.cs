@@ -1,13 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoundEvent : MonoBehaviour 
 {
     private RoundScript roundScript;
     private Camera cam;
     public static RoundEvent current = null;
+
+    [Header("Datos de efectos")]
+    [SerializeField] private Sprite[] backgrounds;
+    [SerializeField] private SpriteRenderer frontBackImage;
 
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
@@ -53,51 +61,67 @@ public class RoundEvent : MonoBehaviour
         switch (round)
         {
             case RoundScript.RoundEnum.Blizzard:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
                 break;
             case RoundScript.RoundEnum.Catapult:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
                 break;
             case RoundScript.RoundEnum.Cloudy:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Cloudy];
                 break;
             case RoundScript.RoundEnum.Drizzle:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Drizzle];
                 break;
             case RoundScript.RoundEnum.DryStorm:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
                 break;
             case RoundScript.RoundEnum.Fire:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
                 break;
             case RoundScript.RoundEnum.Earthquake:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
                 break;
             case RoundScript.RoundEnum.Frost:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
                 break;
             case RoundScript.RoundEnum.Hail:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
                 break;
             case RoundScript.RoundEnum.HeatWave:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
                 break;
             case RoundScript.RoundEnum.Monsoon:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Monsoon];
                 break;
             case RoundScript.RoundEnum.Plague:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Plague];
                 break;
             case RoundScript.RoundEnum.Solarium:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Solarium];
                 break;
             case RoundScript.RoundEnum.Storm:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Storm];
                 break;
             case RoundScript.RoundEnum.Sunny:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Sunny];
                 break;
             case RoundScript.RoundEnum.Wind:
+                ActiveEffect(5, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Wind];
                 break;
         }
@@ -114,10 +138,63 @@ public class RoundEvent : MonoBehaviour
         TreeScript.current.Health -= damageTaken;
     }
 
+
+    #region Controlador de efectos
+    private void ActiveEffect(int index, int effects)
+    {
+        StartCoroutine(ShowFrontEffects());
+        frontBackImage.sprite = backgrounds[index];
+        switch (effects)
+        {
+            case 0:
+                StartCoroutine(CalmEffect());
+                break; 
+            case 1:
+                StartCoroutine(TempestEffect());
+                break; 
+            case 2:
+                StartCoroutine(ImpactEffect());
+                break;
+        }
+    }
+
+    IEnumerator ShowFrontEffects()
+    {
+        float i = 0;
+
+        while (i < 1f)
+        {
+            i += 0.01f;
+            Color aux = frontBackImage.color;
+            aux.a = i;
+            frontBackImage.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+
+    IEnumerator HideFronEffects()
+    {
+        float i = 1;
+
+        while (i > 0)
+        {
+            i -= 0.01f;
+            Color aux = frontBackImage.color;
+            aux.a = i;
+            frontBackImage.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+    #endregion
+
+
+    #region Control efectos camara
     /// <summary>
     /// Reinica las variables de movimiento y bloquea el c�lculo en el Update
     /// </summary>
-    private void RestartVar(float speedPosticion = 0f, float speedRotation = 0f, float speedSize = 0f)
+    private void RestartCam(float speedPosticion = 0f, float speedRotation = 0f, float speedSize = 0f)
     {
         // Move
         this.speedPosticion = speedPosticion;
@@ -150,7 +227,7 @@ public class RoundEvent : MonoBehaviour
         camSize = 8f;
         this.speedSize = speedSize;
         yield return new WaitForSeconds(2);
-        RestartVar();
+        RestartCam();
 
 
         /*float i = 10;
@@ -189,7 +266,8 @@ public class RoundEvent : MonoBehaviour
         
         // Retomamos la c�mara
         moving = true;
-        RestartVar(0, speedRotation, speedSize);
+        RestartCam(0, speedRotation, speedSize);
+        StartCoroutine(HideFronEffects());
     }
 
     IEnumerator TempestEffect()
@@ -221,7 +299,8 @@ public class RoundEvent : MonoBehaviour
 
         // Retomamos la c�mara
         moving = true;
-        RestartVar(speedPosticion, speedRotation, speedSize);
+        RestartCam(speedPosticion, speedRotation, speedSize);
+        StartCoroutine(HideFronEffects());
     }
 
     IEnumerator ImpactEffect()
@@ -253,9 +332,10 @@ public class RoundEvent : MonoBehaviour
 
         // Retomamos la c�mara
         moving = true;
-        RestartVar(speedPosticion, speedRotation, speedSize);
+        RestartCam(speedPosticion, speedRotation, speedSize);
+        StartCoroutine(HideFronEffects());
     }
 
     #endregion
-
+    #endregion
 }

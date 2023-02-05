@@ -112,7 +112,7 @@ public class RoundScript : MonoBehaviour
     {
         //Activate Hud
         //hud.SetActive(true);
-
+        ShowHideButtonsPerks();
     }
 
     /// <summary>
@@ -150,7 +150,6 @@ public class RoundScript : MonoBehaviour
 
     IEnumerator ShowHalfBtn()
     {
-        yield return null;
         float i = 0;
         Image btnImagen = btnNextRound.GetComponent<Image>();
         TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
@@ -219,7 +218,23 @@ public class RoundScript : MonoBehaviour
 
     IEnumerator HideBtn()
     {
-        yield return null;
+        float i = 1;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i > 0)
+        {
+            i -= 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
     }
     #endregion
 
