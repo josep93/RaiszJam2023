@@ -284,6 +284,12 @@ public class RoundEvent : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
+        if (TreeScript.current.Health <= 0)
+        {
+            Mortis();
+            yield break;
+        }
+
         // Esperamos al c�lculo
         moving = false;
         yield return new WaitForSeconds(1);
@@ -316,6 +322,12 @@ public class RoundEvent : MonoBehaviour
         // Otros efectos aparte de la c�mara
 
         yield return new WaitForSeconds(2);
+
+        if (TreeScript.current.Health <= 0)
+        {
+            Mortis();
+            yield break;
+        }
 
         // Esperamos al c�lculo
         moving = false;
@@ -350,6 +362,12 @@ public class RoundEvent : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
+        if (TreeScript.current.Health <= 0)
+        {
+            Mortis();
+            yield break;
+        }
+
         // Esperamos al c�lculo
         moving = false;
         yield return new WaitForSeconds(1);
@@ -358,6 +376,11 @@ public class RoundEvent : MonoBehaviour
         moving = true;
         RestartCam(speedPosticion, speedRotation, speedSize);
         StartCoroutine(HideFronEffects());
+    }
+
+    private void Mortis()
+    {
+        Debug.Log("Mortis");
     }
 
     #endregion
