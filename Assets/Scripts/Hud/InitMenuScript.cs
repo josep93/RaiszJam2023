@@ -56,7 +56,7 @@ public class InitMenuScript : MonoBehaviour
         }
 
         // Al finalizar la transicción, eliminar el fakeCcanvas
-        RoundScript.instance.ShowHidePerks();
+        RoundScript.instance.ShowHideButtonsPerks();
         Destroy(fakeCanvas);
         
     }

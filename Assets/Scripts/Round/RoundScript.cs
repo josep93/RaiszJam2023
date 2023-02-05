@@ -11,12 +11,14 @@ using TMPro;
 
 public class RoundScript : MonoBehaviour
 {
+    [SerializeField] private GameObject btnNextRound;
     [SerializeField] private GameObject[] btnPerks;
     [SerializeField] private float speed = 6;
     private List<Perk.PerkEnum> upgradablePerks;
 
     RoundEvent roundEvent;
     private GameObject hud;
+    private float originalBtnX = 0;
     private bool isShow = false;
     public static RoundScript instance = null;
 
@@ -84,6 +86,7 @@ public class RoundScript : MonoBehaviour
 
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
+        originalBtnX = btnPerks[0].transform.position.x;
 
         RoundsGameGeneration();
     }
@@ -97,23 +100,25 @@ public class RoundScript : MonoBehaviour
     public void InitiateRound()
     {
         //Deactivate Hud
-
         TreeScript.current.UpdateBonuses();
         roundEvent.Run(roundList[roundNumber]);
-        hud.SetActive(false);
+        roundNumber++;
+        Debug.Log("Ronda lanzada");
+
+        //hud.SetActive(false);
     }
 
     public void EndRound()
     {
         //Activate Hud
-        hud.SetActive(true);
+        //hud.SetActive(true);
 
     }
 
     /// <summary>
     /// Alterna el estado de los botones de los perks
     /// </summary>
-    public void ShowHidePerks()
+    public void ShowHideButtonsPerks()
     {
         // Muestra los perks
         if (isShow) { 
@@ -123,8 +128,102 @@ public class RoundScript : MonoBehaviour
 
         // Oculta los perks
         StartCoroutine(ShowPerksAvalible());
-        
+        ShowHalfNextRound();
     }
+
+    #region Control boton de Siguiente ronda
+
+    #region Mostrar mitad
+    
+    /// <summary>
+    /// Mostrar la mitad del botón de Siguiente ronda
+    /// </summary>
+    public void ShowHalfNextRound()
+    {
+        // Mostrar el botón pero estando desactivado
+        btnNextRound.SetActive(true);
+        btnNextRound.GetComponent<Button>().enabled = false;
+        StartCoroutine(ShowHalfBtn());
+    }
+
+
+    IEnumerator ShowHalfBtn()
+    {
+        yield return null;
+        float i = 0;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 0.5f)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+
+    }
+    #endregion
+
+    #region Mostrar completo
+    /// <summary>
+    /// Mostrar y activar botón de siguiente ronda
+    /// </summary>
+    public void ShowFullNextRound()
+    {
+        // Mostrar el botón completo y activarlo
+        StartCoroutine(ShowFullBtn());
+    }
+
+
+    IEnumerator ShowFullBtn()
+    {
+        yield return null;
+        float i = 0.5f;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 1)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+        btnNextRound.GetComponent<Button>().enabled = true;
+    }
+
+    #endregion
+
+    #region Ocultar
+    /// <summary>
+    /// Ocular botón de Siguiente ronda
+    /// </summary>
+    public void HideNextRoundBtn()
+    {
+        StartCoroutine(HideBtn());
+    }
+
+    IEnumerator HideBtn()
+    {
+        yield return null;
+    }
+    #endregion
+
+    #endregion
+
 
     /// <summary>
     /// Mostrar los botones con los perks disponibles
@@ -158,6 +257,7 @@ public class RoundScript : MonoBehaviour
                 btn.transform.position,
                 new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
                 speed);
+            btn.GetComponent<Button>().enabled = true;
             i--;
             yield return new WaitForSeconds(0.01f);
         }
@@ -187,8 +287,9 @@ public class RoundScript : MonoBehaviour
         {
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
-                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
+                new Vector3(-originalBtnX, btn.transform.position.y, 0),
                 -speed);
+            btn.GetComponent<Button>().enabled = false;
             i--;
             yield return new WaitForSeconds(0.01f);
         }
@@ -201,17 +302,31 @@ public class RoundScript : MonoBehaviour
     /// <param name="indexPerk"></param>
     public void ActivePerk(int indexPerk)
     {
-        Debug.Log("Running round: " + roundNumber);
-        Debug.Log("Round running: " + roundList[roundNumber]);
-        roundEvent.Run(roundList[roundNumber]);
-        roundNumber++;
+        ShowFullNextRound();
 
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
         
-        ShowHidePerks();
+        ShowHideButtonsPerks();
+    }
+
+
+
+    public void NextRound()
+    {
+        HideNextRoundBtn();
+        /*roundEvent.Run(roundList[roundNumber]);
+        roundNumber++;*/
+        StartCoroutine(WaitToStart());
 
     }
+
+    IEnumerator WaitToStart()
+    {
+        yield return new WaitForSeconds(1);
+        InitiateRound();
+    }
+
 
     private void RoundsGameGeneration()
     {
