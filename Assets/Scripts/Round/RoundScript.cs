@@ -220,6 +220,7 @@ public class RoundScript : MonoBehaviour
         float i = 1;
         Image btnImagen = btnNextRound.GetComponent<Image>();
         TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+        btnNextRound.GetComponent<Button>().enabled = false;
 
         while (i > 0)
         {
