@@ -11,12 +11,14 @@ using TMPro;
 
 public class RoundScript : MonoBehaviour
 {
+    [SerializeField] private GameObject btnNextRound;
     [SerializeField] private GameObject[] btnPerks;
     [SerializeField] private float speed = 6;
     private List<Perk.PerkEnum> upgradablePerks;
 
     RoundEvent roundEvent;
     private GameObject hud;
+    private float originalBtnX = 0;
     private bool isShow = false;
     public static RoundScript instance = null;
 
@@ -84,6 +86,7 @@ public class RoundScript : MonoBehaviour
 
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
+        originalBtnX = btnPerks[0].transform.position.x;
 
         RoundsGameGeneration();
     }
@@ -97,23 +100,25 @@ public class RoundScript : MonoBehaviour
     public void InitiateRound()
     {
         //Deactivate Hud
-
         TreeScript.current.UpdateBonuses();
         roundEvent.Run(roundList[roundNumber]);
-        hud.SetActive(false);
+        roundNumber++;
+        Debug.Log("Ronda lanzada");
+
+        //hud.SetActive(false);
     }
 
     public void EndRound()
     {
         //Activate Hud
-        hud.SetActive(true);
-
+        //hud.SetActive(true);
+        ShowHideButtonsPerks();
     }
 
     /// <summary>
     /// Alterna el estado de los botones de los perks
     /// </summary>
-    public void ShowHidePerks()
+    public void ShowHideButtonsPerks()
     {
         // Muestra los perks
         if (isShow)
@@ -124,8 +129,117 @@ public class RoundScript : MonoBehaviour
 
         // Oculta los perks
         StartCoroutine(ShowPerksAvalible());
+        ShowHalfNextRound();
+    }
+
+    #region Control boton de Siguiente ronda
+
+    #region Mostrar mitad
+    
+    /// <summary>
+    /// Mostrar la mitad del botï¿½n de Siguiente ronda
+    /// </summary>
+    public void ShowHalfNextRound()
+    {
+        // Mostrar el botï¿½n pero estando desactivado
+        btnNextRound.SetActive(true);
+        btnNextRound.GetComponent<Button>().enabled = false;
+        StartCoroutine(ShowHalfBtn());
+    }
+
+
+    IEnumerator ShowHalfBtn()
+    {
+        float i = 0;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 0.5f)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
 
     }
+    #endregion
+
+    #region Mostrar completo
+    /// <summary>
+    /// Mostrar y activar botï¿½n de siguiente ronda
+    /// </summary>
+    public void ShowFullNextRound()
+    {
+        // Mostrar el botï¿½n completo y activarlo
+        StartCoroutine(ShowFullBtn());
+    }
+
+
+    IEnumerator ShowFullBtn()
+    {
+        yield return null;
+        float i = 0.5f;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 1)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+        btnNextRound.GetComponent<Button>().enabled = true;
+    }
+
+    #endregion
+
+    #region Ocultar
+    /// <summary>
+    /// Ocular botï¿½n de Siguiente ronda
+    /// </summary>
+    public void HideNextRoundBtn()
+    {
+        StartCoroutine(HideBtn());
+    }
+
+    IEnumerator HideBtn()
+    {
+        float i = 1;
+        Image btnImagen = btnNextRound.GetComponent<Image>();
+        TextMeshProUGUI letter = btnNextRound.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i > 0)
+        {
+            i -= 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+    #endregion
+
+    #endregion
+
 
     /// <summary>
     /// Mostrar los botones con los perks disponibles
@@ -160,6 +274,7 @@ public class RoundScript : MonoBehaviour
                 btn.transform.position,
                 new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
                 speed);
+            btn.GetComponent<Button>().enabled = true;
             i--;
             yield return new WaitForSeconds(0.01f);
         }
@@ -188,8 +303,9 @@ public class RoundScript : MonoBehaviour
         {
             btn.transform.position = Vector3.MoveTowards(
                 btn.transform.position,
-                new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
+                new Vector3(-originalBtnX, btn.transform.position.y, 0),
                 -speed);
+            btn.GetComponent<Button>().enabled = false;
             i--;
             yield return new WaitForSeconds(0.01f);
         }
@@ -202,21 +318,35 @@ public class RoundScript : MonoBehaviour
     /// <param name="indexPerk"></param>
     public void ActivePerk(int indexPerk)
     {
-        Debug.Log("Running round: " + roundNumber);
-        Debug.Log("Round running: " + roundList[roundNumber]);
-        roundEvent.Run(roundList[roundNumber]);
-        roundNumber++;
+        ShowFullNextRound();
 
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
+        
+        ShowHideButtonsPerks();
+    }
 
-        ShowHidePerks();
+
+
+    public void NextRound()
+    {
+        HideNextRoundBtn();
+        /*roundEvent.Run(roundList[roundNumber]);
+        roundNumber++;*/
+        StartCoroutine(WaitToStart());
 
     }
 
+    IEnumerator WaitToStart()
+    {
+        yield return new WaitForSeconds(1);
+        InitiateRound();
+    }
+
+
     private void RoundsGameGeneration()
     {
-        // Fisher–Yates shuffle algorithm
+        // Fisherï¿½Yates shuffle algorithm
         List<int> mediRounds = new List<int> { 0, 0, 1, 1, 1 };
         List<int> hardRounds = new List<int> { 1, 2, 2 };
 
