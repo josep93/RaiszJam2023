@@ -28,7 +28,7 @@ public class TreeRenderScript : MonoBehaviour
             return;
         }
 
-        if (RoundScript.instance.roundNumber == 9)
+        if (RoundScript.instance.roundNumber == 10)
         {
             sprites[20].enabled = true;
         }
