@@ -14,7 +14,7 @@ public class InitMenuScript : MonoBehaviour
 
     [SerializeField] private AudioClip[] clips;
 
-    AudioSource audio;
+    new AudioSource audio;
 
     private void Start()
     {

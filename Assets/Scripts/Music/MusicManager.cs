@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    AudioSource audio;
+    new AudioSource audio;
     float maxVolume = 1f;
 
     enum State

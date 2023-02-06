@@ -41,27 +41,27 @@ public class Perk
 
     public static List<String> PerkStringList = new List<String>
     {
-        "Branch fine",
-        "Branch thick",
-        "Cork",
-        "Flexible stem",
-        "More cold resistance",
-        "More drought resistance",
-        "More heat resistance",
-        "More impact resistance",
-        "More torsion resistance",
-        "Leaves empty",
-        "Leaves full",
-        "Leaves waxed",
-        "Root adventitious",
-        "Root lateral",
-        "Root main",
-        "Sap dense",
+        "Thin Branches",
+        "Thick Branches",
+        "Cork Wood",
+        "Flexible Stem",
+        "Improved cold resistance",
+        "Improved drought resistance",
+        "Improved heat resistance",
+        "Improved impact resistance",
+        "Improved torsion resistance",
+        "No Leaves",
+        "Full of Leaves",
+        "Waxed Leaves",
+        "Adventitious Root",
+        "Lateral Root",
+        "Main Root",
+        "Dense Sap",
         "Thorns",
         "Wood",
-        "Wood dense",
-        "Wood hard",
-        "Wood warm"
+        "Dense Wood",
+        "Hard Wood",
+        "Warm Wood"
     };
 
     public static void TestPerks()
