@@ -11,7 +11,9 @@ public class MusicManager : MonoBehaviour
     enum State
     {
         MainMenu,
-        Playing
+        Playing,
+        Dead,
+        Win
     }
 
     [SerializeField] AudioClip[] clips = new AudioClip[Enum.GetNames(typeof(State)).Length];
@@ -40,6 +42,18 @@ public class MusicManager : MonoBehaviour
 
     public void StartGame() {
         state = State.Playing;
+        ChoseTrack();
+    }
+
+    public void Dead()
+    {
+        state = State.Dead;
+        ChoseTrack();
+    }
+
+    public void Win()
+    {
+        state = State.Win;
         ChoseTrack();
     }
 

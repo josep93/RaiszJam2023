@@ -15,7 +15,7 @@ public class TreeScript : MonoBehaviour
 
     public short[] ResistanceBonuses { get => resistanceBonuses; }
 
-    public short Health = 30;
+    public short Health = 40;
 
     void Start()
     {
@@ -53,11 +53,11 @@ public class TreeScript : MonoBehaviour
     public void UpdateBonuses()
     {
         Array.Clear(resistanceBonuses,0,resistanceBonuses.Length);
-        foreach (Perk perk in perks)
+        foreach (Perk.PerkEnum perk in Perk.ActivePerks)
         {
             for (int i = 0; i<5; i++)
             {
-                resistanceBonuses[i] += perk.ResistanceBonuses[i];
+                resistanceBonuses[i] += Perk.PerkChosen(perk)[i];
             }
         }
     }

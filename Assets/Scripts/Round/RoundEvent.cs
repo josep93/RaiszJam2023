@@ -5,13 +5,14 @@ using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RoundEvent : MonoBehaviour 
 {
     private RoundScript roundScript;
     private Camera cam;
-    private AudioSource audio;
+    private AudioSource audioSource;
     public static RoundEvent current = null;
 
     [Header("Datos de efectos")]
@@ -19,6 +20,9 @@ public class RoundEvent : MonoBehaviour
     [SerializeField] private SpriteRenderer backgroundEffect;
     [SerializeField] private SpriteRenderer frontEffect;
     [SerializeField] private AudioClip[] clips;
+    [SerializeField] private GameObject frontDead;
+    [SerializeField] private GameObject frontWin;
+    [SerializeField] private GameObject btnRestart;
 
     [Header("Controlador de movimiento")]
     [SerializeField] private bool moving = false;
@@ -41,10 +45,11 @@ public class RoundEvent : MonoBehaviour
     {
         if (current != null) { Destroy(this); }
         current = this;
+        Perk.ActivePerks.Clear();
         roundScript = this.GetComponentInParent<RoundScript>();
-        audio = this.GetComponent<AudioSource>();
-        audio.loop = false;
-        audio.playOnAwake = false;
+        audioSource = this.GetComponent<AudioSource>();
+        audioSource.loop = false;
+        audioSource.playOnAwake = false;
         cam = Camera.main;
     }
 
@@ -71,7 +76,7 @@ public class RoundEvent : MonoBehaviour
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Blizzard];
                 break;
             case RoundScript.RoundEnum.Catapult:
-                ActiveEffect(0, -1, 0, 0);
+                ActiveEffect(17, -1, 0, 0);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Catapult];
                 break;
             case RoundScript.RoundEnum.Cloudy:
@@ -87,7 +92,7 @@ public class RoundEvent : MonoBehaviour
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.DryStorm];
                 break;
             case RoundScript.RoundEnum.Fire:
-                ActiveEffect(5, -1, 2, 3);
+                ActiveEffect(18, 19, 2, 3);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Fire];
                 break;
             case RoundScript.RoundEnum.Earthquake:
@@ -95,7 +100,7 @@ public class RoundEvent : MonoBehaviour
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Earthquake];
                 break;
             case RoundScript.RoundEnum.Frost:
-                ActiveEffect(5, -1, 0, 6);
+                ActiveEffect(20, 21, 0, 6);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Frost];
                 break;
             case RoundScript.RoundEnum.Hail:
@@ -103,7 +108,7 @@ public class RoundEvent : MonoBehaviour
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.Hail];
                 break;
             case RoundScript.RoundEnum.HeatWave:
-                ActiveEffect(5, -1, 0, 5);
+                ActiveEffect(22, -1, 0, 5);
                 attackRound = roundScript.RoundDict[RoundScript.RoundEnum.HeatWave];
                 break;
             case RoundScript.RoundEnum.Monsoon:
@@ -150,8 +155,8 @@ public class RoundEvent : MonoBehaviour
     {
         
         backgroundEffect.sprite = backgrounds[indexBack];
-        audio.clip = clips[indexAudio];
-        audio.Play();
+        audioSource.clip = clips[indexAudio];
+        audioSource.Play();
         StartCoroutine(ShowBackEffects());
 
         if (indexFront >= 0)
@@ -404,11 +409,117 @@ public class RoundEvent : MonoBehaviour
         StartCoroutine(HideFrontEffects());
     }
 
+    #endregion
+    #endregion
+
+
     private void Mortis()
     {
-        Debug.Log("Mortis");
+        
+        StartCoroutine(FrontDead());
     }
 
-    #endregion
-    #endregion
+
+    IEnumerator FrontDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+        MusicManager.current.Dead();
+        
+        yield return new WaitForSeconds(0.5f);
+
+
+        float i = 0;
+        SpriteRenderer frontEffect = frontDead.GetComponent<SpriteRenderer>();
+
+        while (i < 1f)
+        {
+            i += 0.01f;
+            Color aux = frontEffect.color;
+            aux.a = i;
+            frontEffect.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+
+
+        yield return new WaitForSeconds(0.5f);
+
+        i = 0;
+        btnRestart.SetActive(true);
+        Image btnImagen = btnRestart.GetComponent<Image>();
+        TextMeshProUGUI letter = btnRestart.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 1)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+
+    }
+
+
+    public void Win()
+    {
+
+        StartCoroutine(FrontWin());
+    }
+
+
+    IEnumerator FrontWin()
+    {
+        yield return new WaitForSeconds(0.5f);
+        MusicManager.current.Win();
+
+        yield return new WaitForSeconds(0.5f);
+
+
+        float i = 0;
+        SpriteRenderer frontEffect = frontWin.GetComponent<SpriteRenderer>();
+
+        while (i < 1f)
+        {
+            i += 0.01f;
+            Color aux = frontEffect.color;
+            aux.a = i;
+            frontEffect.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+
+
+        yield return new WaitForSeconds(0.5f);
+
+        i = 0;
+        btnRestart.SetActive(true);
+        Image btnImagen = btnRestart.GetComponent<Image>();
+        TextMeshProUGUI letter = btnRestart.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 1)
+        {
+            i += 0.01f;
+            Color aux = btnImagen.color;
+            aux.a = i;
+            btnImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

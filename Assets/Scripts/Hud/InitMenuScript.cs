@@ -120,6 +120,5 @@ public class InitMenuScript : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         audio.clip = clips[2];
         audio.Play(0);
-        Debug.Log("Suena");
     }
 }

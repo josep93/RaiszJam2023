@@ -14,6 +14,7 @@ public class RoundScript : MonoBehaviour
     [SerializeField] private GameObject btnNextRound;
     [SerializeField] private GameObject[] btnPerks;
     [SerializeField] private float speed = 6;
+    [SerializeField] private TextMeshProUGUI txtLog;
     private List<Perk.PerkEnum> upgradablePerks;
 
     RoundEvent roundEvent;
@@ -87,7 +88,6 @@ public class RoundScript : MonoBehaviour
         roundEvent = this.GetComponentInChildren<RoundEvent>();
         hud = GameObject.FindGameObjectWithTag("Hud");
         originalBtnX = btnPerks[0].transform.position.x;
-
         RoundsGameGeneration();
     }
 
@@ -113,6 +113,17 @@ public class RoundScript : MonoBehaviour
         //hud.SetActive(true);
         TreeRenderScript.current.UpdateSprites();
         ShowHideButtonsPerks();
+
+        string res = "";
+        
+        var data = TreeScript.current.ResistanceBonuses;
+        res += $"Cold: {data[0]}\n";
+        res += $"Drought: {data[1]}\n";
+        res += $"Heat: {data[2]}\n";
+        res += $"Impact: {data[3]}\n";
+        res += $"Torsion: {data[4]}\n";
+
+        txtLog.text = "Round: " + (roundNumber + 1) + "\n------------\n" + res;
     }
 
     /// <summary>
@@ -300,6 +311,7 @@ public class RoundScript : MonoBehaviour
     IEnumerator HideButton(GameObject btn)
     {
         int i = 30;
+        
         while (i > 0)
         {
             btn.transform.position = Vector3.MoveTowards(
@@ -310,6 +322,7 @@ public class RoundScript : MonoBehaviour
             i--;
             yield return new WaitForSeconds(0.01f);
         }
+        txtLog.text = "";
     }
 
 
@@ -331,6 +344,12 @@ public class RoundScript : MonoBehaviour
 
     public void NextRound()
     {
+        
+        if (roundNumber >= 10)
+        {
+            roundEvent.Win();
+            return;
+        }
         HideNextRoundBtn();
         /*roundEvent.Run(roundList[roundNumber]);
         roundNumber++;*/
@@ -343,7 +362,6 @@ public class RoundScript : MonoBehaviour
         yield return new WaitForSeconds(1);
         InitiateRound();
     }
-
 
     private void RoundsGameGeneration()
     {
