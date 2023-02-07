@@ -52,7 +52,7 @@ public class TreeScript : MonoBehaviour
     /// </summary>
     public void UpdateBonuses()
     {
-        Array.Clear(resistanceBonuses,0,resistanceBonuses.Length);
+        resistanceBonuses = new short[] { 0,0,0,0,0};
         foreach (Perk.PerkEnum perk in Perk.ActivePerks)
         {
             for (int i = 0; i<5; i++)

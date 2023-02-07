@@ -51,6 +51,26 @@ public class RoundScript : MonoBehaviour
         Torsion
     }
 
+    public static List<String> RoundStringList = new List<String>
+    {
+        "Blizzard",
+        "Siege",
+        "Cloudy",
+        "Drizzle",
+        "Dry Storm",
+        "Earthquake",
+        "Fire",
+        "Cold Snap",
+        "Hail",
+        "Heat Wave",
+        "Monsoon",
+        "Plague",
+        "Scorcher",
+        "Storm",
+        "Sunny",
+        "Windy"
+    };
+
     public short roundNumber = 0;
     private List<RoundEnum> RoundsSoft = new List<RoundEnum> { RoundEnum.Cloudy, RoundEnum.Sunny, RoundEnum.Drizzle, RoundEnum.Solarium, RoundEnum.Wind };
     private List<RoundEnum> RoundsMedi = new List<RoundEnum> { RoundEnum.DryStorm, RoundEnum.Earthquake, RoundEnum.Hail, RoundEnum.Blizzard, RoundEnum.Storm, RoundEnum.Plague };
@@ -76,7 +96,9 @@ public class RoundScript : MonoBehaviour
         {RoundEnum.Wind, new int[]       {0, 0, 0, 0, 3 }}  // Soft
     };
 
-    List<RoundEnum> roundList = new();
+    private List<RoundEnum> roundList = new();
+
+    public List<RoundEnum> RoundList { get => roundList; }
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +111,9 @@ public class RoundScript : MonoBehaviour
         hud = GameObject.FindGameObjectWithTag("Hud");
         originalBtnX = btnPerks[0].transform.position.x;
         RoundsGameGeneration();
+        ForecastScript.current.UpdateForecast();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -103,6 +127,7 @@ public class RoundScript : MonoBehaviour
         TreeScript.current.UpdateBonuses();
         roundEvent.Run(roundList[roundNumber]);
         roundNumber++;
+        ForecastScript.current.UpdateForecast();
 
         //hud.SetActive(false);
     }
@@ -113,15 +138,23 @@ public class RoundScript : MonoBehaviour
         //hud.SetActive(true);
         TreeRenderScript.current.UpdateSprites();
         ShowHideButtonsPerks();
+        UpdateTextLog();
+    }
 
+    private void UpdateTextLog()
+    {
+
+        TreeScript.current.UpdateBonuses();
         string res = "";
-        
+
         var data = TreeScript.current.ResistanceBonuses;
         res += $"Cold: {data[0]}\n";
         res += $"Drought: {data[1]}\n";
         res += $"Heat: {data[2]}\n";
         res += $"Impact: {data[3]}\n";
         res += $"Torsion: {data[4]}\n";
+
+        res += $"Vida: {TreeScript.current.Health}\n";
 
         txtLog.text = "Round: " + (roundNumber + 1) + "\n------------\n" + res;
     }
@@ -322,7 +355,7 @@ public class RoundScript : MonoBehaviour
             i--;
             yield return new WaitForSeconds(0.01f);
         }
-        txtLog.text = "";
+        //txtLog.text = "";
     }
 
 
@@ -336,7 +369,8 @@ public class RoundScript : MonoBehaviour
 
         Perk.ActivePerks.Add(upgradablePerks[indexPerk]);
         TreeRenderScript.current.UpdateSprites();
-        
+        UpdateTextLog();
+
         ShowHideButtonsPerks();
     }
 

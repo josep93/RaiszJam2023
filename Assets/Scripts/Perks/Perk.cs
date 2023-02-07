@@ -16,7 +16,7 @@ public class Perk
 
     public enum PerkEnum : short
     {
-        BranchFine,
+        BranchThin,
         BranchThick,
         Cork,
         FlexibleStem,
@@ -72,12 +72,12 @@ public class Perk
 
 
         activePerks.Add(PerkEnum.Thorns);
-        activePerks.Add(PerkEnum.BranchFine);
+        activePerks.Add(PerkEnum.BranchThin);
         activePerks.Add(PerkEnum.BranchThick);
     }
 
-    private static HashSet<PerkEnum> activePerks = new HashSet<PerkEnum>();
-    public static HashSet<PerkEnum> ActivePerks { get => activePerks; }
+    private static List<PerkEnum> activePerks = new List<PerkEnum>();
+    public static List<PerkEnum> ActivePerks { get => activePerks; }
 
     public void Run()
     {
@@ -101,7 +101,7 @@ public class Perk
         else if (activePerks.Contains(perkChosen)) return false;
         switch (perkChosen)
         {
-            case PerkEnum.BranchFine:
+            case PerkEnum.BranchThin:
                 {
                     if (!activePerks.Contains(PerkEnum.BranchThick)) return false;
                     return true;
@@ -222,145 +222,144 @@ public class Perk
     public static short[] PerkChosen(PerkEnum perkChosen)
     {
         short[] resistanceBonuses = new short[5];
-        activePerks.Add(perkChosen);
         switch (perkChosen)
         {
 
-            case PerkEnum.BranchFine:
+            case PerkEnum.BranchThin:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Impact] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = 2;
 
-                    resistanceBonuses[(short)ResistancesEnum.Drought] -= 2;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = -2;
                     return resistanceBonuses;
                 }
             case PerkEnum.BranchThick:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Impact] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = 2;
 
-                    resistanceBonuses[(short)ResistancesEnum.Heat] -= 2;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = -2;
                     return resistanceBonuses;
                 }
             case PerkEnum.Cork:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Heat] += 3;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = 3;
 
-                    resistanceBonuses[(short)ResistancesEnum.Impact] -= 2;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = -2;
                     return resistanceBonuses;
                 }
             case PerkEnum.FlexibleStem:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Torsion] += 3;
+                    resistanceBonuses[(short)ResistancesEnum.Torsion] = 3;
 
-                    resistanceBonuses[(short)ResistancesEnum.Drought] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.GenericCold:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Cold] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = 1;
                     return resistanceBonuses;
                 }
             case PerkEnum.GenericDrought:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 1;
                     return resistanceBonuses;
                 }
             case PerkEnum.GenericHeat:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Heat] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = 1;
                     return resistanceBonuses;
                 }
             case PerkEnum.GenericImpact:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Impact] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = 1;
 
                     return resistanceBonuses;
                 }
             case PerkEnum.GenericTorsion:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Torsion] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Torsion] = 1;
 
                     return resistanceBonuses;
                 }
             case PerkEnum.LeavesEmpty:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Heat] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = 2;
 
-                    resistanceBonuses[(short)ResistancesEnum.Drought] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.LeavesFull:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 1;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 1;
 
-                    resistanceBonuses[(short)ResistancesEnum.Cold] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.LeavesWaxed:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 2;
                     return resistanceBonuses;
                 }
             case PerkEnum.RootAdventitious:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Torsion] += 4;
+                    resistanceBonuses[(short)ResistancesEnum.Torsion] = 4;
 
-                    resistanceBonuses[(short)ResistancesEnum.Cold] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.RootLateral:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Torsion] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Torsion] = 2;
                     return resistanceBonuses;
                 }
             case PerkEnum.RootMain:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 4;
-                    resistanceBonuses[(short)ResistancesEnum.Torsion] += 4;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 4;
+                    resistanceBonuses[(short)ResistancesEnum.Torsion] = 4;
                     return resistanceBonuses;
                 }
             case PerkEnum.SapDense:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Cold] += 5;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = 5;
 
-                    resistanceBonuses[(short)ResistancesEnum.Heat] -= 2;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = -2;
                     return resistanceBonuses;
                 }
             case PerkEnum.Thorns:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Heat] += 2;
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 4;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = 2;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 4;
 
-                    resistanceBonuses[(short)ResistancesEnum.Cold] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.Wood:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Impact] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = 2;
 
-                    resistanceBonuses[(short)ResistancesEnum.Heat] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.WoodDense:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Impact] += 2;
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 2;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = 2;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 2;
 
-                    resistanceBonuses[(short)ResistancesEnum.Cold] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.WoodHard:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Cold] += 3;
-                    resistanceBonuses[(short)ResistancesEnum.Drought] += 3;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = 3;
+                    resistanceBonuses[(short)ResistancesEnum.Drought] = 3;
 
-                    resistanceBonuses[(short)ResistancesEnum.Impact] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Impact] = -1;
                     return resistanceBonuses;
                 }
             case PerkEnum.WoodWarm:
                 {
-                    resistanceBonuses[(short)ResistancesEnum.Cold] += 4;
+                    resistanceBonuses[(short)ResistancesEnum.Cold] = 4;
 
-                    resistanceBonuses[(short)ResistancesEnum.Heat] -= 1;
+                    resistanceBonuses[(short)ResistancesEnum.Heat] = -1;
                     return resistanceBonuses;
                 }
 

@@ -40,7 +40,7 @@ public class TreeRenderScript : MonoBehaviour
         sprites[6].enabled = true;
         sprites[13].enabled = true;
         if(Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThick))sprites[14].enabled = true;
-        if(Perk.ActivePerks.Contains(Perk.PerkEnum.BranchFine))sprites[15].enabled = true;
+        if(Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThin))sprites[15].enabled = true;
 
         foreach (Perk.PerkEnum perk in Perk.ActivePerks)
         {
@@ -52,7 +52,7 @@ public class TreeRenderScript : MonoBehaviour
     {
         switch (perk)
         {
-            case (Perk.PerkEnum.BranchFine):
+            case (Perk.PerkEnum.BranchThin):
                 sprites[5].enabled = true;
                 return;
             case (Perk.PerkEnum.BranchThick):
@@ -74,7 +74,7 @@ public class TreeRenderScript : MonoBehaviour
             case (Perk.PerkEnum.LeavesWaxed):
                 sprites[16].enabled = true;
                 if (Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThick)) sprites[17].enabled = true;
-                if (Perk.ActivePerks.Contains(Perk.PerkEnum.BranchFine)) sprites[18].enabled = true;
+                if (Perk.ActivePerks.Contains(Perk.PerkEnum.BranchThin)) sprites[18].enabled = true;
                 return;
             case (Perk.PerkEnum.RootAdventitious):
                 sprites[1].enabled = true;

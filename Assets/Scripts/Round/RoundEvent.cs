@@ -145,8 +145,14 @@ public class RoundEvent : MonoBehaviour
                 damageTaken += result;
             }
         }
-
-        TreeScript.current.Health -= damageTaken;
+        if (damageTaken > 0)
+        {
+            TreeScript.current.Health -= damageTaken;
+        }
+        else
+        {
+            TreeScript.current.Health += 5;
+        }
     }
 
 
