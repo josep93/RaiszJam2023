@@ -272,6 +272,12 @@ public class RoundEvent : MonoBehaviour
     }
 
     #region LabRound
+    public void LabEvent()
+    {
+        StartCoroutine(ImpactEffect());
+    }
+
+
     IEnumerator LabRound(float speedPosticion = 0.1f, float speedRotation = 0.2f, float speedSize = 0.0125f)
     {
         moving = true;
@@ -286,7 +292,6 @@ public class RoundEvent : MonoBehaviour
         this.speedSize = speedSize;
         yield return new WaitForSeconds(2);
         RestartCam();
-
 
         /*float i = 10;
         while (i > 0)
@@ -382,7 +387,7 @@ public class RoundEvent : MonoBehaviour
 
         // Position
         xPosticion = -0.5f;
-        yPosticion = 2;
+        yPosticion = 1;
         speedPosticion = 0.03f;
 
         // Rotation
