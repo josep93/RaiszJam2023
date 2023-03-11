@@ -5654,9 +5654,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837110191}
-        m_TargetAssemblyTypeName: RoundScript, Assembly-CSharp
-        m_MethodName: ShowHideButtonsPerks
+      - m_Target: {fileID: 1312785929}
+        m_TargetAssemblyTypeName: RoundEvent, Assembly-CSharp
+        m_MethodName: LabEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
