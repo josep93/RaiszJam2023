@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using JetBrains.Annotations;
 using System.Linq.Expressions;
 using TMPro;
+using System.Linq;
 
 public class RoundScript : MonoBehaviour
 {
@@ -167,6 +168,7 @@ public class RoundScript : MonoBehaviour
         // Muestra los perks
         if (isShow)
         {
+            Array.ForEach(btnPerks, (btn) => btn.GetComponent<Button>().enabled = false);
             StartCoroutine(HidePerskAvalible());
             return;
         }
@@ -307,11 +309,17 @@ public class RoundScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Mueve el botón a la zona visible de la pantalla
+    /// </summary>
+    /// <param name="btn"> GameObject del botón a mover </param>
+    /// <param name="index"> Index del nombre del perk a escribir </param>
     IEnumerator ShowButton(GameObject btn, int index)
     {
         int i = 30;
 
         btn.GetComponentInChildren<TextMeshProUGUI>().text = Perk.PerkStringList[index];
+        btn.GetComponent<Button>().enabled = true;
 
         while (i > 0)
         {
@@ -319,7 +327,7 @@ public class RoundScript : MonoBehaviour
                 btn.transform.position,
                 new Vector3(Screen.width * 0.7f, btn.transform.position.y, 0),
                 speed);
-            btn.GetComponent<Button>().enabled = true;
+            
             i--;
             yield return new WaitForSeconds(0.01f);
         }
@@ -333,6 +341,7 @@ public class RoundScript : MonoBehaviour
     IEnumerator HidePerskAvalible()
     {
         isShow = false;
+        
         foreach (GameObject btn in btnPerks)
         {
             StartCoroutine(HideButton(btn));
@@ -351,7 +360,7 @@ public class RoundScript : MonoBehaviour
                 btn.transform.position,
                 new Vector3(-originalBtnX, btn.transform.position.y, 0),
                 -speed);
-            btn.GetComponent<Button>().enabled = false;
+            //btn.GetComponent<Button>().enabled = false;
             i--;
             yield return new WaitForSeconds(0.01f);
         }
