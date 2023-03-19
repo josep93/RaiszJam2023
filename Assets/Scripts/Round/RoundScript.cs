@@ -9,11 +9,13 @@ using JetBrains.Annotations;
 using System.Linq.Expressions;
 using TMPro;
 using System.Linq;
+using System.Reflection;
 
 public class RoundScript : MonoBehaviour
 {
     [SerializeField] private GameObject btnNextRound;
     [SerializeField] private GameObject[] btnPerks;
+    [SerializeField] private GameObject[] logPanels;
     [SerializeField] private float speed = 6;
     [SerializeField] private TextMeshProUGUI txtLog;
     private List<Perk.PerkEnum> upgradablePerks;
@@ -115,13 +117,6 @@ public class RoundScript : MonoBehaviour
         ForecastScript.current.UpdateForecast();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void InitiateRound()
     {
         //Deactivate Hud
@@ -165,7 +160,7 @@ public class RoundScript : MonoBehaviour
     /// </summary>
     public void ShowHideButtonsPerks()
     {
-        // Muestra los perks
+        // Oculta los perks
         if (isShow)
         {
             Array.ForEach(btnPerks, (btn) => btn.GetComponent<Button>().enabled = false);
@@ -173,7 +168,9 @@ public class RoundScript : MonoBehaviour
             return;
         }
 
-        // Oculta los perks
+        // Muestra los perks
+        StartCoroutine(ShowLogPanel(0));
+        StartCoroutine(ShowLogPanel(1));
         StartCoroutine(ShowPerksAvalible());
         ShowHalfNextRound();
     }
@@ -336,6 +333,65 @@ public class RoundScript : MonoBehaviour
 
 
     /// <summary>
+    /// Muestra los paneles de información de estadísiticas y próximo ataque
+    /// </summary>
+    /// <param name="logPanelIndex"></param>
+    /// <returns></returns>
+    IEnumerator ShowLogPanel(int logPanelIndex)
+    {
+        GameObject cPanel = logPanels[logPanelIndex];
+        //cPanel.GetComponent<Button>().enabled = true;
+
+        float i = 0;
+        Image panelImagen = cPanel.GetComponent<Image>();
+        TextMeshProUGUI letter = cPanel.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i < 1f)
+        {
+            i += 0.01f;
+            Color aux = panelImagen.color;
+            aux.a = (i / 3);
+            panelImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+
+    /// <summary>
+    /// Oculta los paneles de información de estadísiticas y próximo ataque
+    /// </summary>
+    /// <param name="logPanelIndex"></param>
+    /// <returns></returns>
+    IEnumerator HideLogPanel(int logPanelIndex)
+    {
+        GameObject cPanel = logPanels[logPanelIndex];
+        //cPanel.GetComponent<Button>().enabled = true;
+
+        float i = 1;
+        Image panelImagen = cPanel.GetComponent<Image>();
+        TextMeshProUGUI letter = cPanel.GetComponentInChildren<TextMeshProUGUI>();
+
+        while (i > 0)
+        {
+            i -= 0.01f;
+            Color aux = panelImagen.color;
+            aux.a = (i / 3);
+            panelImagen.color = aux;
+
+            aux = letter.color;
+            aux.a = i;
+            letter.color = aux;
+
+            yield return new WaitForSeconds(0.005f);
+        }
+    }
+
+
+    /// <summary>
     /// Ocultar los botones de los perks disponibles
     /// </summary>
     IEnumerator HidePerskAvalible()
@@ -394,6 +450,8 @@ public class RoundScript : MonoBehaviour
             return;
         }
         HideNextRoundBtn();
+        StartCoroutine(HideLogPanel(0));
+        StartCoroutine(HideLogPanel(1));
         /*roundEvent.Run(roundList[roundNumber]);
         roundNumber++;*/
         StartCoroutine(WaitToStart());
